@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Northwind Digital | Web Development & Digital Marketing Agency</title>
+<meta name="description" content="Websites, web apps and marketing campaigns built by one team, so your business gets found and grows.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header><div class="wrap nav">
+<a class="logo" href="#home" ><img class="lg" src="assets/logo.png" alt="Northwind Digital" width="737" height="167" style="height:46px;width:auto"></a>
+<button id="menu" aria-label="Open menu" aria-expanded="false" aria-controls="links">☰</button>
+<nav class="links" id="links" aria-label="Main">
+<a href="#services">Services</a><a href="#projects">Projects</a><a href="#team">Our Team</a><a href="#about">About Us</a><a href="#contact">Contact</a>
+<a class="btn" href="#contact">Start a Project</a></nav></div></header>
+
+<main>
+<section class="hero" id="home"><div class="wrap grid">
+<div>
+<h1>Build it. Launch it. Grow it.</h1>
+<p>Behind every small business is a big dream, a risk someone took, and a vision worth fighting for. We’re here to help turn that dream into something real. Through design, development, and marketing, we help ambitious founders break through barriers, reach more people, and build a business they’re proud of — bringing their first $1M closer than ever.</p>
+<div class="cta"><a class="btn" href="#contact">Start a Project</a><a class="btn ghost" href="#projects">Explore Our Work</a></div></div>
+<div class="win" aria-hidden="true"><div class="bar"><b></b><b></b><b></b></div><div class="body"><div class="kpi"><span>Monthly visitors (sample)</span><strong>+128%</strong></div><div class="chart"><span style="height:22%"></span><span style="height:34%"></span><span style="height:30%"></span><span style="height:52%"></span><span style="height:64%"></span><span style="height:80%"></span><span style="height:96%"></span></div></div></div>
+</div></section>
+
+<div class="marq" aria-hidden="true"><div class="track"><span>Websites</span><span>Web apps</span><span>E-commerce</span><span>SEO</span><span>Meta ads</span><span>Content</span><span>Conversion</span><span>Websites</span><span>Web apps</span><span>E-commerce</span><span>SEO</span><span>Meta ads</span><span>Content</span><span>Conversion</span></div></div>
+<section id="services"><div class="wrap">
+<h2>Services that lead to results</h2>
+<p class="lead">Every service is tied to an outcome you can measure: more visitors, more leads, more sales.</p>
+<div id="svc"></div></div></section>
+
+<section id="projects" class="dark"><div class="wrap">
+<h2>Selected projects</h2>
+<p class="lead">A selection of our work. Entries marked “sample” are placeholders.</p>
+<div class="cols" id="proj" tabindex="0" aria-label="Projects, slides from left to right"></div><div class="sl-ctl"><button id="prev" aria-label="Previous project">←</button><button id="next" aria-label="Next project">→</button></div></div></section>
+
+<section id="team"><div class="wrap">
+<h2>The people behind the work</h2>
+<p class="lead">The people you will work with directly — one team, across design, development and marketing.</p>
+<div id="teamgrid"></div></div></section>
+
+<section id="about" class="dark"><div class="wrap split">
+<div><h2>About us</h2>
+<p class="lead">We are a small, senior team that combines creative design, solid engineering and data-driven marketing. We explain what we are doing, share progress openly and judge our work by your business results.</p>
+<div class="mission">Our mission: help ambitious businesses grow through digital work they are proud of.</div>
+<a class="btn" href="#contact">Talk to the team</a></div>
+<div><h2>Why choose us</h2><div class="cols" id="why" style="grid-template-columns:1fr 1fr"></div>
+<div class="cols" style="grid-template-columns:repeat(3,1fr);margin-top:24px">
+<div class="stat"><strong>00+</strong><small>Projects delivered (placeholder)</small></div>
+<div class="stat"><strong>00</strong><small>Happy clients (placeholder)</small></div>
+<div class="stat"><strong>00%</strong><small>Client retention (placeholder)</small></div></div></div>
+</div></section>
+
+<section id="process"><div class="wrap"><h2>How we work</h2>
+<ol class="steps" id="steps"></ol></div></section>
+
+<section id="testimonials" class="dark"><div class="wrap"><h2>Client feedback</h2>
+<p class="lead">These are sample placeholders, not real clients. Replace them with genuine feedback.</p>
+<div class="cols" id="tests"></div></div></section>
+
+<section id="contact"><div class="wrap split">
+<div><h2>Tell us about your project</h2>
+<p class="lead">Share a few details and we will reply with next steps and a rough estimate.</p>
+<ul class="contact-list"><li>Email: <a id="mail"></a></li></ul>
+<a class="btn" id="wa" target="_blank" rel="noopener">Chat on WhatsApp</a>
+<p class="note" style="margin-top:20px" id="soc"></p></div>
+<form id="f" novalidate>
+<div class="row"><label>Name<input name="name" autocomplete="name" required><span class="err"></span></label>
+<label>Email<input name="email" type="email" autocomplete="email" required><span class="err"></span></label></div>
+<div class="row"><label>Service needed<select name="service" required><option value="">Choose a service</option></select><span class="err"></span></label>
+<label>Budget range<select name="budget" required><option value="">Choose a range</option><option>Under ₹50,000</option><option>₹50,000 – ₹2,00,000</option><option>₹2,00,000 – ₹5,00,000</option><option>₹5,00,000+</option></select><span class="err"></span></label></div>
+<label>Project description<textarea name="msg" required minlength="20"></textarea><span class="err"></span></label>
+<input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
+<button class="btn" type="submit">Send project details</button>
+<div id="status" role="status"></div></form>
+</div></section>
+</main>
+
+<footer><div class="wrap"><div class="cols">
+<div><a class="logo" href="#home" style="color:#fff"><img class="lg" src="assets/logo.png" alt="Northwind Digital" width="737" height="167" style="height:54px;width:auto"></a><p style="margin-top:12px">Web development and digital marketing for businesses that want to grow.</p></div>
+<div><h4>Navigate</h4><a href="#services">Services</a><a href="#projects">Projects</a><a href="#team">Our Team</a><a href="#about">About Us</a><a href="#contact">Contact</a></div>
+<div><h4>Services</h4><a href="#services">Website development</a><a href="#services">E-commerce</a><a href="#services">SEO</a><a href="#services">Paid ads</a></div>
+<div><h4>Contact</h4><a id="fmail"></a><div id="fsoc"></div></div></div>
+<div class="copy">© <span id="yr"></span> <span data-agency></span>. All rights reserved.</div></div></footer>
+
+<script src="js/config.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
