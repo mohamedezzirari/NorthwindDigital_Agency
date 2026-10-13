@@ -17,7 +17,7 @@ section{padding:92px 0}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
 :focus-visible{outline:3px solid var(--mint);outline-offset:3px}
 header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
-.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.nav{display:flex;align-items:center;justify-content:space-around;height:68px}
 .logo{font:700 1.3rem "Space Grotesk",sans-serif;text-decoration:none}.logo i{display:inline-block;width:12px;height:12px;background:var(--mint);border-radius:3px;margin-right:8px}
 .links{display:flex;gap:26px;align-items:center}.links a{text-decoration:none;font-weight:500;font-size:.95rem}
 .links a.btn{padding:10px 20px;color:#fff}

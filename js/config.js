@@ -61,18 +61,13 @@ const ICONS={
  doc:'<path d="M6 2.5h7.5L18.5 7.5V21a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1z"/><path d="M13.5 2.5V8h5"/><path d="M8.5 12.5h7M8.5 16h5"/>',
  funnel:'<path d="M3.5 4.5h17l-6.6 7.9v6.1l-3.8 2.3v-8.4z"/>'
 };
+/* "Selected projects" renders image-only cards. Any field left out is simply
+   not drawn, which is why there are no names here. Add alt text for screen
+   readers, or put name/desc/tech back on an entry to show them again. */
 let PROJECTS=[
- {name:"Locomotive",industry:"Digital agency · Montreal",services:"Website",desc:"Website for Locomotive, a Montreal digital agency. Replace this line with your exact role on the project.",tech:["Web","Design"],c:["#111111","#D1FE17"],img:"",url:"https://locomotive.ca/en"},
- {name:"Atlas Furniture Store",industry:"Retail (sample)",services:"E-commerce, SEO",value:"₹1,85,000",desc:"Online store with product search, simple 3-step checkout and UPI/card payments.",tech:["React","Node","Razorpay"],c:["#3D4BFF","#6FE3C1"],img:"",url:"#contact"},
- {name:"Bloom Dental Clinic",industry:"Healthcare (sample)",services:"Website, Local SEO",value:"₹65,000",desc:"Booking-focused clinic website that helps nearby patients find and call the clinic.",tech:["Next.js","Google Business"],c:["#FF6B8B","#FFB86B"],img:"",url:"#contact"},
- {name:"Orbit SaaS Launch",industry:"Software (sample)",services:"Landing page, Paid ads",value:"₹95,000 + ₹25,000/month ads",desc:"Launch page and Google and Meta ad funnel to collect early sign-ups.",tech:["React","Google Ads","Analytics"],c:["#14173D","#7B86FF"],img:"",url:"#contact"},
- {name:"Sahara Travel Co.",industry:"Tourism (sample)",services:"Social media management",value:"₹30,000/month",desc:"Content calendar, reels and Instagram campaigns for a tour operator.",tech:["Meta Ads","Canva"],c:["#F2994A","#EB5757"],img:"",url:"#contact"},
- {name:"FitZone Member Portal",industry:"Fitness (sample)",services:"Custom web application",value:"₹3,20,000",desc:"Member login, class booking, payments and an admin dashboard for a gym chain.",tech:["React","Node","PostgreSQL"],c:["#0F9D76","#2F5BFF"],img:"",url:"#contact"},
- {name:"Urban Threads Fashion",industry:"Fashion (sample)",services:"Facebook & Instagram Ads",value:"₹40,000/month",desc:"Catalogue ads and retargeting campaigns to bring shoppers back to the store.",tech:["Meta Ads","Pixel","CRO"],c:["#8E2DE2","#F2709C"],img:"",url:"#contact"},
- {name:"Casa Real Estate",industry:"Real estate (sample)",services:"Website, Listings system",desc:"Property listing website with search filters, map view and enquiry forms.",tech:["React","Node","Maps API"],c:["#2F80ED","#56CCF2"],img:"",url:"#contact"},
- {name:"Lumen Photography",industry:"Creative (sample)",services:"Portfolio website",desc:"Image-first portfolio with fast galleries and a simple booking page.",tech:["HTML/CSS","JavaScript"],c:["#232526","#7B86FF"],img:"",url:"#contact"},
- {name:"Savora Restaurant",industry:"Food (sample)",services:"Website, Online ordering",desc:"Menu website with online ordering and table reservations.",tech:["Next.js","Stripe"],c:["#F2994A","#D1FE17"],img:"",url:"#contact"},
- {name:"Nova Academy",industry:"Education (sample)",services:"Website, Course platform",desc:"Course website with student accounts, lessons and payments.",tech:["React","Node","PostgreSQL"],c:["#6A11CB","#2575FC"],img:"",url:"#contact"}
+ {img:"assets/project-1.webp",alt:"Selected project 1"},
+ {img:"assets/project-2.webp",alt:"Selected project 2"},
+ {img:"assets/project-3.webp",alt:"Selected project 3"}
 ];
 let WHY=[["Tailored solutions","Nothing off the shelf. Each project is built around your goals."],["One team, two skills","Development and marketing work together under one roof."],["Modern technology","Current tools that keep your site fast and secure."],["Data-driven marketing","Decisions come from numbers, not guesses."],["Clear communication","Regular updates in plain language."],["Measurable results","We agree on targets and report against them."]];
 let STEPS=[["Discovery","We learn your business and goals."],["Strategy","We plan the right solution."],["Design","We create the visual experience."],["Development / Execution","We build the site or launch the campaign."],["Testing and Launch","We check everything before delivery."],["Optimization","We improve performance and results."]];

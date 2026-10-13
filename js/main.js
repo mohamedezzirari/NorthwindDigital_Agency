@@ -47,7 +47,16 @@ $("#soc").innerHTML=Object.entries(CONFIG.socials).map(([n,u])=>`<a href="${esc(
    so a typo in config.js degrades to a letter instead of an empty box. */
 const icon=k=>ICONS[k]?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${ICONS[k]}</svg>`:esc(k||"");
 $("#svc").innerHTML=Object.entries(SERVICES).map(([g,list])=>`<div class="svc-group"><h3>${g}</h3><div class="cols">${list.map(s=>`<article class="card"><div class="ico">${icon(s[2])}</div><h3>${esc(s[0])}</h3><p>${esc(s[1])}</p></article>`).join("")}</div></div>`).join("");
-$("#proj").innerHTML=PROJECTS.map(p=>`<article class="card proj"><div class="shot" style="--a:${p.c[0]};background-image:${p.img?`url('${esc(p.img)}')`:`linear-gradient(135deg,${p.c[0]},${p.c[1]})`}">${p.img?"":'<div class="mock"><span><i></i><i></i><i></i></span><b></b><u></u><u></u><s></s></div>'}</div><h3>${esc(p.name)}</h3><div class="meta">${esc(p.industry)} · ${esc(p.services)}</div><p>${esc(p.desc)}</p><div>${p.tech.map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>${p.url&&p.url.startsWith("http")?`<a class="vis" href="${esc(p.url)}" target="_blank" rel="noopener">Visit site →</a>`:""}</article>`).join("");
+/* Project cards draw only the fields that exist, so an entry with just an image
+   renders as image-only. Put name/desc/tech back on an entry to show its text. */
+$("#proj").innerHTML=PROJECTS.map(p=>{
+ const cols=p.c||["#14173D","#7B86FF"];
+ const bg=p.img?`url('${esc(p.img)}')`:`linear-gradient(135deg,${cols[0]},${cols[1]})`;
+ const tags=(p.tech||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join("");
+ const meta=[p.industry,p.services].filter(Boolean).map(esc).join(" · ");
+ const shot=`<div class="shot" style="--a:${cols[0]};background-image:${bg}"${p.alt?` role="img" aria-label="${esc(p.alt)}"`:""}>${p.img?"":'<div class="mock"><span><i></i><i></i><i></i></span><b></b><u></u><u></u><s></s></div>'}</div>`;
+ return `<article class="card proj">${shot}${p.name?`<h3>${esc(p.name)}</h3>`:""}${meta?`<div class="meta">${meta}</div>`:""}${p.desc?`<p>${esc(p.desc)}</p>`:""}${tags?`<div>${tags}</div>`:""}${p.url&&p.url.startsWith("http")?`<a class="vis" href="${esc(p.url)}" target="_blank" rel="noopener">Visit site →</a>`:""}</article>`;
+}).join("");
 
 function avatar(m,i){if(m.photo)return m.photo;
  const h=[235,160,330,25,200,280][i%6],ini=m.name.split(" ").map(w=>w[0]).slice(0,2).join("").toUpperCase();
