@@ -67,7 +67,10 @@ const ICONS={
 let PROJECTS=[
  {img:"assets/project-1.webp",alt:"Selected project 1"},
  {img:"assets/project-2.webp",alt:"Selected project 2"},
- {img:"assets/project-3.webp",alt:"Selected project 3"}
+ {img:"assets/project-3.webp",alt:"Selected project 3"},
+ {img:"assets/project-4.webp",alt:"Selected project 4"},
+ {img:"assets/project-5.webp",alt:"Selected project 5"},
+ {img:"assets/project-6.webp",alt:"Selected project 6"}
 ];
 let WHY=[["Tailored solutions","Nothing off the shelf. Each project is built around your goals."],["One team, two skills","Development and marketing work together under one roof."],["Modern technology","Current tools that keep your site fast and secure."],["Data-driven marketing","Decisions come from numbers, not guesses."],["Clear communication","Regular updates in plain language."],["Measurable results","We agree on targets and report against them."]];
 let STEPS=[["Discovery","We learn your business and goals."],["Strategy","We plan the right solution."],["Design","We create the visual experience."],["Development / Execution","We build the site or launch the campaign."],["Testing and Launch","We check everything before delivery."],["Optimization","We improve performance and results."]];

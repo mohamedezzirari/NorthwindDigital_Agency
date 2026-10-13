@@ -17,12 +17,18 @@ section{padding:92px 0}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
 :focus-visible{outline:3px solid var(--mint);outline-offset:3px}
 header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
-.nav{display:flex;align-items:center;justify-content:space-around;height:68px}
-.logo{font:700 1.3rem "Space Grotesk",sans-serif;text-decoration:none}.logo i{display:inline-block;width:12px;height:12px;background:var(--mint);border-radius:3px;margin-right:8px}
+/* Three zones: logo left, links centred, CTA right. The equal 1fr flanks are
+   what make the centre true page centre rather than centre of the leftover
+   space. The CTA is a sibling of <nav> so it can be pushed to the right edge;
+   .nav-cta-mobile is the copy that lives inside the mobile dropdown. */
+.nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:68px}
+.nav-cta{justify-self:end;padding:10px 20px}
+.nav-cta-mobile{display:none}
+.logo{font:700 1.3rem "Space Grotesk",sans-serif;text-decoration:none;justify-self:start}.logo i{display:inline-block;width:12px;height:12px;background:var(--mint);border-radius:3px;margin-right:8px}
 .links{display:flex;gap:26px;align-items:center}.links a{text-decoration:none;font-weight:500;font-size:.95rem}
 .links a.btn{padding:10px 20px;color:#fff}
 #menu{display:none;background:none;border:1px solid var(--line);border-radius:10px;width:44px;height:44px;color:inherit;font-size:1.3rem;cursor:pointer}
-@media(max-width:860px){#menu{display:block}.links{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 22px 20px}.links.open{display:flex}.links a{padding:12px 0}.links a.btn{text-align:center;margin-top:8px}}
+@media(max-width:860px){#menu{display:block}.nav{display:flex;justify-content:space-between}.nav-cta{display:none}.nav-cta-mobile{display:block}.links{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 22px 20px}.links.open{display:flex}.links a{padding:12px 0}.links a.btn{text-align:center;margin-top:8px}}
 .hero{background:var(--deep);color:var(--on-deep);padding:96px 0 84px;overflow:hidden}
 .hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
 .hero p{color:#b9bfe6;font-size:1.15rem}.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
