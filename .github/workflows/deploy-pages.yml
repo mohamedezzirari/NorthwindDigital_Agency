@@ -1,0 +1,60 @@
+name: Deploy static site to GitHub Pages
+
+# Publishes the static site (index.html, css/, js/, assets/) to GitHub Pages.
+# The local Express + SQLite backend in server/ is deliberately NOT published,
+# and neither is original-single-file.html — only the files the site needs.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Assemble the site
+        run: |
+          set -e
+          mkdir -p _site
+          cp index.html _site/
+          cp -r css js assets _site/
+          # Belt and braces: never publish the backend or the dev-only files.
+          rm -rf _site/server _site/original-single-file.html
+          # Prevent Jekyll from touching the output.
+          touch _site/.nojekyll
+          echo "--- published files ---"
+          find _site -type f | sort
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
