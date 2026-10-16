@@ -1,341 +1,70 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <title>Northwind Digital | Web Development & Digital Marketing Agency</title>
-    <meta name="description"
-        content="Websites, web apps and marketing campaigns built by one team, so your business gets found and grows.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Northwind Digital | Web Development &amp; Digital Marketing Agency</title>
+  <meta name="description"
+    content="Websites, web apps and marketing campaigns built by one team, so your business gets found and grows.">
+  <meta name="theme-color" content="#14173D">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <!--
+    Social preview. og:image is deliberately missing: it must be an ABSOLUTE url
+    to work, and there is no canonical domain yet. It is added at Checkpoint 3
+    once the final host is known.
+  -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Northwind Digital — Build it. Launch it. Grow it.">
+  <meta property="og:description"
+    content="Websites, web apps and marketing campaigns built by one team, so your business gets found and grows.">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!--
+    Structured data. The email mirrors the placeholder in src/data/content.js;
+    keep the two in step until real contact details replace them.
+    No "logo" field yet: schema.org expects an ABSOLUTE url there, and there is
+    no canonical domain. It is added at Checkpoint 3 along with og:image.
+  -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Northwind Digital",
+      "email": "hello@example.com"
+    }
+  </script>
 </head>
 
 <body>
-    <header>
-        <div class="wrap nav">
-            <a class="logo" href="#home">
-                <img class="lg" src="assets/logo.png" alt="Northwind Digital" width="737" height="167" style="height:46px;width:auto">
-            </a>
-            <button id="menu" aria-label="Open menu" aria-expanded="false" aria-controls="links">☰</button>
-            <nav class="links" id="links" aria-label="Main">
-                <a href="#services">Services</a>
-                <a href="#projects">Projects</a>
-                <a href="#team">Our Team</a>
-                <a href="#about">About Us</a>
-                <a href="#contact">Contact</a>
-                <a class="btn nav-cta-mobile" href="#contact">Start a Project</a>
-            </nav>
-            <a class="btn nav-cta" href="#contact">Start a Project</a>
-        </div>
-    </header>
+  <!--
+    vite-ssg locates this element by its id and replaces it wholesale with the
+    pre-rendered markup at build time, so the build output contains the real
+    page rather than an empty shell. Do not rename the id.
+  -->
+  <div id="app"></div>
 
-    <main>
-        <section class="hero" id="home">
-            <div class="wrap grid">
-                <div>
-                    <h1>Build it. Launch it. Grow it.</h1>
-                    <p>Behind every small business is a big dream, a risk someone took, and a vision worth fighting for.
-                        We’re here to help turn that dream into something real. Through design, development, and
-                        marketing, we help ambitious founders break through barriers, reach more people, and build a
-                        business they’re proud of — bringing their first $1M closer than ever.</p>
-                    <div class="cta"><a class="btn" href="#contact">Start a Project</a><a class="btn ghost"
-                            href="#projects">Explore Our Work</a></div>
-                </div>
-                <div class="win" aria-hidden="true">
-                    <div class="bar"><b></b><b></b><b></b></div>
-                    <div class="body">
-                        <div class="kpi"><span>Monthly visitors (sample)</span><strong>+128%</strong></div>
-                        <div class="chart"><span style="height:22%"></span><span style="height:34%"></span><span
-                                style="height:30%"></span><span style="height:52%"></span><span
-                                style="height:64%"></span><span style="height:80%"></span><span
-                                style="height:96%"></span></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!--
+    The page content IS present without JavaScript because it is pre-rendered.
+    Only the interactive parts (menu, carousel, billing toggle, promo code,
+    form) need it. This notice is hidden whenever JS runs.
+  -->
+  <noscript>
+    <p style="padding:24px;font:16px/1.6 system-ui,sans-serif">
+      Some interactive parts of this page need JavaScript. You can still reach us at
+      <a href="mailto:hello@example.com">hello@example.com</a>.
+    </p>
+  </noscript>
 
-        <div class="marq" aria-hidden="true">
-            <div class="track"><span>Websites</span><span>Web
-                    apps</span><span>E-commerce</span><span>SEO</span><span>Meta
-                    ads</span><span>Content</span><span>Conversion</span><span>Websites</span><span>Web
-                    apps</span><span>E-commerce</span><span>SEO</span><span>Meta
-                    ads</span><span>Content</span><span>Conversion</span></div>
-        </div>
-        <section id="services">
-            <div class="wrap">
-                <h2>Services that lead to results</h2>
-                <p class="lead">Every service is tied to an outcome you can measure: more visitors, more leads, more
-                    sales.</p>
-                <div id="svc"></div>
-            </div>
-        </section>
-
-        <section id="projects" class="dark">
-            <div class="wrap">
-                <h2>Selected projects</h2>
-                <p class="lead">A selection of recent work.</p>
-                <div class="cols" id="proj" tabindex="0" aria-label="Projects, slides from left to right"></div>
-                <div class="sl-ctl"><button id="prev" aria-label="Previous project">←</button><button id="next"
-                        aria-label="Next project">→</button></div>
-            </div>
-        </section>
-
-        <section id="team">
-            <div class="wrap">
-                <h2>The people behind the work</h2>
-                <p class="lead">The people you will work with directly — one team, across design, development and
-                    marketing.</p>
-                <div id="teamgrid"></div>
-            </div>
-        </section>
-
-        <section id="about" class="dark">
-            <div class="wrap split">
-                <div>
-                    <h2>About us</h2>
-                    <p class="lead">We are a small, senior team that combines creative design, solid engineering and
-                        data-driven marketing. We explain what we are doing, share progress openly and judge our work by
-                        your business results.</p>
-                    <div class="mission">Our mission: help ambitious businesses grow through digital work they are proud
-                        of.</div>
-                    <a class="btn" href="#contact">Talk to the team</a>
-                </div>
-                <div>
-                    <h2>Why choose us</h2>
-                    <div class="cols" id="why" style="grid-template-columns:1fr 1fr"></div>
-                    <div class="cols" style="grid-template-columns:repeat(3,1fr);margin-top:24px">
-                        <div class="stat"><strong>00+</strong><small>Projects delivered (placeholder)</small></div>
-                        <div class="stat"><strong>00</strong><small>Happy clients (placeholder)</small></div>
-                        <div class="stat"><strong>00%</strong><small>Client retention (placeholder)</small></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="process">
-            <div class="wrap">
-                <h2>How we work</h2>
-                <ol class="steps" id="steps"></ol>
-            </div>
-        </section>
-
-        <section id="testimonials" class="dark">
-            <div class="wrap">
-                <h2>Client feedback</h2>
-                <p class="lead">These are sample placeholders, not real clients. Replace them with genuine feedback.</p>
-                <div class="cols" id="tests"></div>
-            </div>
-        </section>
-
-        <section id="pricing" aria-labelledby="pricing-title">
-            <div class="wrap pricing">
-                <div class="pricing__head">
-                    <p class="pricing__eyebrow">Packs &amp; Pricing</p>
-                    <h2 id="pricing-title">Plans that grow with your traffic</h2>
-                    <p class="lead">Start with a 14-day free trial — no card, no lock-in. Switch packs or billing period
-                        whenever you like.</p>
-                </div>
-
-                <div class="pricing__controls">
-                    <div class="switch" data-billing role="group" aria-labelledby="billing-label">
-                        <span id="billing-label" class="hp">Billing period</span>
-                        <button type="button" class="switch__opt" data-cycle="monthly" aria-pressed="true">Monthly</button>
-                        <button type="button" class="switch__opt" data-cycle="annual" aria-pressed="false">Annual
-                            <span class="pill pill--save">Save 20%</span></button>
-                    </div>
-                    <p class="pricing__next" data-next-billing>Prices billed monthly. Switch to annual and save 20%.</p>
-                </div>
-
-                <ul class="plans" data-plans aria-label="Available packs">
-
-                    <li class="plan" data-plan-id="starter" style="--plan-accent:#555a7a">
-                        <h3 class="plan__name">Starter</h3>
-                        <p class="plan__tag">Get online fast with the essentials.</p>
-                        <p class="plan__price">
-                            <span class="plan__was" data-gross-for="starter" hidden>$390</span>
-                            <span class="plan__amount" data-price-for="starter">$390</span>
-                            <span class="plan__period">/ month</span>
-                        </p>
-                        <p class="plan__note" data-note-for="starter">Billed $390 monthly, cancel anytime · 14-day free
-                            trial</p>
-                        <ul class="plan__features">
-                            <li><svg class="pr-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Custom 5-page website</span></li>
-                            <li><svg class="pr-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Mobile-responsive design</span></li>
-                            <li><svg class="pr-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Basic on-page SEO</span></li>
-                            <li><svg class="pr-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Monthly performance report</span></li>
-                        </ul>
-                        <ul class="plan__limits" aria-label="Starter limits">
-                            <li>2 seats</li>
-                            <li>10 GB storage</li>
-                            <li>100k requests/mo</li>
-                        </ul>
-                        <a class="btn ghost plan__cta" href="#contact" data-cta-for="starter" data-plan-cta
-                            data-plan-id="starter" data-plan-name="Starter">Choose Starter</a>
-                    </li>
-
-                    <li class="plan plan--best" data-plan-id="growth" data-recommended style="--plan-accent:#3D4BFF">
-                        <p class="plan__badge">
-                            <svg class="pr-ico pr-ico--best" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="M12 2.5l2.9 5.9 6.5.95-4.7 4.6 1.1 6.45L12 17.35 6.2 20.4l1.1-6.45-4.7-4.6 6.5-.95L12 2.5z" fill="currentColor"/></svg>
-                            Most popular<span class="hp"> — recommended plan</span>
-                        </p>
-                        <h3 class="plan__name">Growth</h3>
-                        <p class="plan__tag">The pack most clients choose.</p>
-                        <p class="plan__price">
-                            <span class="plan__was" data-gross-for="growth" hidden>$790</span>
-                            <span class="plan__amount" data-price-for="growth">$790</span>
-                            <span class="plan__period">/ month</span>
-                        </p>
-                        <p class="plan__note" data-note-for="growth">Billed $790 monthly, cancel anytime · 14-day free
-                            trial</p>
-                        <ul class="plan__features">
-                            <li><svg class="pr-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Everything in Starter</span></li>
-                            <li><svg class="pr-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Up to 15 pages &amp; CMS</span></li>
-                            <li><svg class="pr-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Conversion copywriting</span></li>
-                            <li><svg class="pr-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SEO &amp; content strategy</span></li>
-                            <li><svg class="pr-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>A/B testing &amp; landing pages</span></li>
-                        </ul>
-                        <ul class="plan__limits" aria-label="Growth limits">
-                            <li>5 seats</li>
-                            <li>50 GB storage</li>
-                            <li>1M requests/mo</li>
-                        </ul>
-                        <a class="btn plan__cta" href="#contact" data-cta-for="growth" data-plan-cta data-recommended-cta
-                            data-plan-id="growth" data-plan-name="Growth">Start with Growth</a>
-                    </li>
-
-                    <li class="plan" data-plan-id="scale" style="--plan-accent:#0E9E7E">
-                        <h3 class="plan__name">Scale</h3>
-                        <p class="plan__tag">For teams running serious traffic.</p>
-                        <p class="plan__price">
-                            <span class="plan__was" data-gross-for="scale" hidden>$1,490</span>
-                            <span class="plan__amount" data-price-for="scale">$1,490</span>
-                            <span class="plan__period">/ month</span>
-                        </p>
-                        <p class="plan__note" data-note-for="scale">Billed $1,490 monthly, cancel anytime · 14-day free
-                            trial</p>
-                        <ul class="plan__features">
-                            <li><svg class="pr-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Everything in Growth</span></li>
-                            <li><svg class="pr-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Unlimited pages &amp; CMS</span></li>
-                            <li><svg class="pr-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Dedicated strategist</span></li>
-                            <li><svg class="pr-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Priority support (4h response)</span></li>
-                            <li><svg class="pr-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Advanced analytics &amp; dashboards</span></li>
-                            <li><svg class="pr-ico" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Quarterly growth roadmap</span></li>
-                        </ul>
-                        <ul class="plan__limits" aria-label="Scale limits">
-                            <li>20 seats</li>
-                            <li>250 GB storage</li>
-                            <li>10M requests/mo</li>
-                        </ul>
-                        <a class="btn ghost plan__cta" href="#contact" data-cta-for="scale" data-plan-cta
-                            data-plan-id="scale" data-plan-name="Scale">Talk to sales</a>
-                    </li>
-
-                </ul>
-
-                <div class="quickcompare" role="group" aria-label="Key differences at a glance">
-                    <p class="quickcompare__row"><span>Priority support</span><span aria-hidden="true">✕ · ✕ ·
-                            ✓</span><span class="hp">Starter: no. Growth: no. Scale: yes.</span></p>
-                    <p class="quickcompare__row"><span>Dedicated strategist</span><span aria-hidden="true">✕ · ✕ ·
-                            ✓</span><span class="hp">Starter: no. Growth: no. Scale: yes.</span></p>
-                    <p class="quickcompare__row"><span>A/B testing</span><span aria-hidden="true">✕ · ✓ ·
-                            ✓</span><span class="hp">Starter: no. Growth: yes. Scale: yes.</span></p>
-                </div>
-
-                <div class="promo">
-                    <button type="button" class="promo__reveal" data-promo-reveal aria-expanded="false"
-                        aria-controls="promo-panel">
-                        <svg class="pr-ico pr-ico--tag" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M20.6 13.4 12 22l-9-9V3h10l7.6 7.6a2 2 0 0 1 0 2.8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor"/></svg>
-                        Have a promo code?
-                    </button>
-
-                    <form class="promo__form" id="promo-panel" data-promo novalidate hidden>
-                        <label for="promo-code">Promo code</label>
-                        <div class="promo__row">
-                            <input id="promo-code" name="promo" type="text" autocomplete="off" spellcheck="false"
-                                placeholder="NORTHWIND10" aria-describedby="promo-msg">
-                            <button type="submit" class="btn">Apply</button>
-                            <button type="button" class="btn ghost" data-promo-clear hidden>Remove</button>
-                        </div>
-                        <p id="promo-msg" class="promo__msg" role="status" aria-live="polite"></p>
-                    </form>
-                </div>
-
-                <p class="pricing__legal">All prices in US dollars. Taxes may apply and are calculated at checkout.
-                    Annual packs are billed once for the full year. Cancel anytime before renewal.</p>
-                <p class="hp" data-pricing-live role="status" aria-live="polite"></p>
-            </div>
-        </section>
-
-        <section id="contact">
-            <div class="wrap split">
-                <div>
-                    <h2>Tell us about your project</h2>
-                    <p class="lead">Share a few details and we will reply with next steps and a rough estimate.</p>
-                    <ul class="contact-list">
-                        <li>Email: <a id="mail"></a></li>
-                    </ul>
-                    <a class="btn" id="wa" target="_blank" rel="noopener">Chat on WhatsApp</a>
-                    <p class="note" style="margin-top:20px" id="soc"></p>
-                </div>
-                <form id="f" novalidate>
-                    <div class="row"><label>Name<input name="name" autocomplete="name" required><span
-                                class="err"></span></label>
-                        <label>Email<input name="email" type="email" autocomplete="email" required><span
-                                class="err"></span></label>
-                    </div>
-                    <div class="row"><label>Service needed<select name="service" required>
-                                <option value="">Choose a service</option>
-                            </select><span class="err"></span></label>
-                        <label>Budget range<select name="budget" required>
-                                <option value="">Choose a range</option>
-                                <option>Under ₹50,000</option>
-                                <option>₹50,000 – ₹2,00,000</option>
-                                <option>₹2,00,000 – ₹5,00,000</option>
-                                <option>₹5,00,000+</option>
-                            </select><span class="err"></span></label>
-                    </div>
-                    <label>Project description<textarea name="msg" required minlength="20"></textarea><span
-                            class="err"></span></label>
-                    <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
-                    <button class="btn" type="submit">Send project details</button>
-                    <div id="status" role="status"></div>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="wrap">
-            <div class="cols">
-                <div><a class="logo" href="#home" style="color:#fff"><img class="lg" src="assets/logo.png"
-                            alt="Northwind Digital" width="737" height="167" style="height:54px;width:auto"></a>
-                    <p style="margin-top:12px">Web development and digital marketing for businesses that want to grow.
-                    </p>
-                </div>
-                <div>
-                    <h4>Navigate</h4><a href="#services">Services</a><a href="#projects">Projects</a><a href="#team">Our
-                        Team</a><a href="#about">About Us</a><a href="#contact">Contact</a>
-                </div>
-                <div>
-                    <h4>Services</h4><a href="#services">Website development</a><a href="#services">E-commerce</a><a
-                        href="#services">SEO</a><a href="#services">Paid ads</a>
-                </div>
-                <div>
-                    <h4>Contact</h4><a id="fmail"></a>
-                    <div id="fsoc"></div>
-                </div>
-            </div>
-            <div class="copy">© <span id="yr"></span> <span data-agency></span>. All rights reserved.</div>
-        </div>
-    </footer>
-
-    <script src="js/config.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/pricing.js"></script>
+  <script type="module" src="/src/main.js"></script>
 </body>
 
 </html>
