@@ -25,14 +25,14 @@ import { WHY, STATS } from "../../data/content.js";
 
       <div>
         <h2>Why choose us</h2>
-        <div class="cols" style="grid-template-columns:1fr 1fr">
+        <div class="cols" style="grid-template-columns:repeat(2,minmax(0,1fr))">
           <div v-for="reason in WHY" :key="reason.title" class="card">
             <h3>{{ reason.title }}</h3>
             <p>{{ reason.body }}</p>
           </div>
         </div>
 
-        <div class="cols" style="grid-template-columns:repeat(3,1fr);margin-top:24px">
+        <div class="cols" style="grid-template-columns:repeat(3,minmax(0,1fr));margin-top:24px">
           <div v-for="stat in STATS" :key="stat.label" class="stat">
             <strong>{{ stat.value }}</strong>
             <small>{{ stat.label }}</small>

@@ -24,7 +24,7 @@ header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 8
    the right edge, and .nav-cta-mobile is the copy that lives in the small-screen
    menu. This bar needs ~830px of content width, so it collapses at 960px rather
    than at the 860px the other sections use. */
-.nav{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:68px}
+.nav{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;height:68px}
 .nav-cta{justify-self:end;padding:10px 20px}
 .nav-cta-mobile{display:none}
 .logo{font:700 1.3rem "Space Grotesk",sans-serif;text-decoration:none;justify-self:start}.logo i{display:inline-block;width:12px;height:12px;background:var(--mint);border-radius:3px;margin-right:8px}
@@ -33,7 +33,7 @@ header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 8
 #menu{display:none;background:none;border:1px solid var(--line);border-radius:10px;width:44px;height:44px;color:inherit;font-size:1.3rem;cursor:pointer}
 @media(max-width:960px){#menu{display:block}.nav{display:flex;justify-content:space-between}.nav-cta{display:none}.nav-cta-mobile{display:block}.links{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 22px 20px}.links.open{display:flex}.links a{padding:12px 0}.links a.btn{text-align:center;margin-top:8px}}
 .hero{background:var(--deep);color:var(--on-deep);padding:96px 0 84px;overflow:hidden}
-.hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+.hero .grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:center}
 .hero p{color:#b9bfe6;font-size:1.15rem}.cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
 .hero .btn.ghost{color:var(--on-deep)}
 .win{background:#1d2160;border:1px solid #343a8c;border-radius:16px;box-shadow:0 30px 70px rgba(0,0,0,.4);overflow:hidden}
@@ -45,7 +45,32 @@ header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 8
 .chart span:nth-child(2){animation-delay:.08s}.chart span:nth-child(3){animation-delay:.16s}.chart span:nth-child(4){animation-delay:.24s}.chart span:nth-child(5){animation-delay:.32s}.chart span:nth-child(6){animation-delay:.4s}.chart span:nth-child(7){animation-delay:.48s}
 @keyframes grow{from{transform:scaleY(.05)}}
 .tag{display:inline-block;font-size:.8rem;padding:3px 10px;border-radius:999px;background:color-mix(in srgb,var(--brand) 14%,transparent);color:var(--brand);margin:0 6px 6px 0;font-weight:500}
-.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+/* ---------- why every track below is minmax(0,...) ----------
+
+   A bare `1fr` is shorthand for `minmax(auto,1fr)`, and that `auto` is the
+   *automatic minimum size*: the track refuses to shrink below its content.
+   On a 390px phone this made the About section's two-column block demand
+   393.5px inside a 346px content box, pushing 44px of the page off-screen.
+   Nothing looked broken, because body{overflow-x:hidden} clipped the excess
+   instead of scrolling -- the right-hand edge of that column was just cut off.
+
+   Writing `minmax(0,...)` removes the automatic minimum, so a column can go
+   narrower than its content and the content wraps instead. The `min()` in the
+   auto-fit grids does the same job for the *track count*: once the container is
+   narrower than one column's ideal width, the column takes the container's width
+   rather than overflowing it.
+
+   The min-width:0 guard directly below is the belt-and-braces
+   version, so a grid added later cannot reintroduce the same trap. */
+
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:20px}
+
+/* A grid item's automatic minimum size is its min-content width, which is what
+   lets content force a track wider than the space available. Setting it to 0
+   removes that floor. It is the same fix the minmax(0,...) templates above
+   apply, expressed on the items instead, so nothing on this page can be pushed
+   off-screen by its own contents. */
+.nav>*,.grid>*,.cols>*,.team>*,.split>*,.steps>*,.row>*,.plans>*{min-width:0}
 .card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px;transition:transform .25s,border-color .25s}
 .card:hover{transform:translateY(-4px);border-color:var(--brand)}
 .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:var(--deep);color:var(--mint);font:700 1rem "Space Grotesk";margin-bottom:16px}
@@ -58,7 +83,7 @@ header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 8
 .proj a{font-weight:600;color:var(--brand)}
 .dark{background:var(--deep);color:var(--on-deep)}.dark .lead,.dark .card p{color:#b9bfe6}
 .dark .card{background:#1a1e56;border-color:#2f3590}
-.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px}
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr));gap:24px}
 .member{background:#1a1e56;border:1px solid #2f3590;border-radius:20px;overflow:hidden;transition:transform .3s}
 .member:hover{transform:translateY(-6px)}
 .member img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;transition:transform .5s}
@@ -68,17 +93,17 @@ header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 8
 .member p{font-size:.93rem;color:#b9bfe6;margin-bottom:12px}
 .member .tag{background:#2a2f80;color:#cdd2ff}
 .soc a{font-size:.85rem;margin-right:12px;color:#b9bfe6}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
-@media(max-width:860px){.hero .grid,.split{grid-template-columns:1fr}section{padding:68px 0}}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:start}
+@media(max-width:860px){.hero .grid,.split{grid-template-columns:minmax(0,1fr)}section{padding:68px 0}}
 .mission{border-left:4px solid var(--mint);padding:4px 0 4px 18px;font:500 1.25rem/1.4 "Space Grotesk";margin:24px 0}
 .stat strong{display:block;font:700 2.2rem "Space Grotesk";color:var(--brand)}.stat small{color:var(--muted)}
-.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;padding:0;list-style:none;margin:0}
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr));gap:20px;padding:0;list-style:none;margin:0}
 .steps li{counter-increment:s;position:relative;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px}
 .steps li:before{content:counter(s);display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--brand);color:#fff;font:700 1rem "Space Grotesk";margin-bottom:14px}
 .steps p{margin:0;color:var(--muted);font-size:.96rem}
 blockquote{margin:0}.quote{font-size:1.02rem}.who{margin-top:14px;font-weight:600;font-size:.92rem}
 .note{font-size:.85rem;color:var(--muted)}
-form{display:grid;gap:16px}.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:600px){.row{grid-template-columns:1fr}}
+form{display:grid;gap:16px}.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}@media(max-width:600px){.row{grid-template-columns:minmax(0,1fr)}}
 label{font-weight:500;font-size:.92rem;display:grid;gap:6px}
 input,select,textarea{font:inherit;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);width:100%}
 textarea{min-height:130px;resize:vertical}
@@ -87,7 +112,7 @@ textarea{min-height:130px;resize:vertical}
 #status.ok{display:block;background:#d9f7ec;color:#0b5a41}#status.bad{display:block;background:#fde3ea;color:#8a1a3d}
 .contact-list{list-style:none;padding:0;margin:24px 0;display:grid;gap:10px}
 footer{background:var(--deep);color:#b9bfe6;padding:60px 0 30px;font-size:.94rem}
-footer .cols{grid-template-columns:2fr 1fr 1fr 1.3fr;gap:30px}@media(max-width:860px){footer .cols{grid-template-columns:1fr 1fr}}
+footer .cols{grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr);gap:30px}@media(max-width:860px){footer .cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
 footer h4{color:#fff;margin:0 0 12px;font:700 1rem "Space Grotesk"}footer a{display:block;text-decoration:none;padding:3px 0}footer a:hover{color:var(--mint)}
 .copy{border-top:1px solid #2b2f66;margin-top:36px;padding-top:20px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
@@ -170,7 +195,7 @@ header{background:color-mix(in srgb,#0A0A0A 85%,transparent)}
 /* ---- ID badge: logo + name on top, role full width beneath ---- */
 .tp-badge{margin-top:-1px;width:172px;min-height:74px;padding:11px 12px 12px;
   background:#0F0F10;border:2px solid #C8FF14;border-radius:9px;text-align:left;
-  display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:center;
+  display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:10px;align-items:center;
   box-shadow:0 12px 28px rgba(0,0,0,.55)}
 .tp-mark{grid-column:1;grid-row:1;width:34px;height:34px;border-radius:8px;background:#C8FF14;
   color:#0A0A0B;display:grid;place-items:center;font:800 1.15rem "Space Grotesk",sans-serif}
@@ -272,9 +297,9 @@ header{background:color-mix(in srgb,#0A0A0A 85%,transparent)}
 .pricing__next{margin:10px 0 0;max-width:none;font-size:var(--pr-t-small);color:var(--pr-muted)}
 
 /* ---- card grid: 1 -> 2 -> 3 columns ---- */
-.plans{list-style:none;margin:0;padding:0;display:grid;gap:var(--pr-gap);grid-template-columns:1fr}
-@media (min-width:640px){.plans{grid-template-columns:repeat(2,1fr)}}
-@media (min-width:960px){.plans{grid-template-columns:repeat(3,1fr)}}
+.plans{list-style:none;margin:0;padding:0;display:grid;gap:var(--pr-gap);grid-template-columns:minmax(0,1fr)}
+@media (min-width:640px){.plans{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:960px){.plans{grid-template-columns:repeat(3,minmax(0,1fr))}}
 /* an odd card wrapping at 2 columns gets centred rather than leaving a hole */
 @media (min-width:640px) and (max-width:959px){
   .plans>:last-child:nth-child(odd){grid-column:1/-1;width:100%;max-width:calc(50% - var(--pr-gap)/2);justify-self:center}
@@ -291,7 +316,7 @@ header{background:color-mix(in srgb,#0A0A0A 85%,transparent)}
 .plan__was{color:var(--pr-muted);text-decoration:line-through;font-size:var(--pr-t-body)}
 .plan__note{margin:0;color:var(--pr-muted);font-size:var(--pr-t-small);min-height:1.4em}
 .plan__features{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.plan__features li{display:grid;grid-template-columns:20px 1fr;gap:10px;align-items:start;font-size:var(--pr-t-body)}
+.plan__features li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;align-items:start;font-size:var(--pr-t-body)}
 /* NB: deliberately NOT .ico — the site already uses .ico for the 46x46 dark
    service-icon squares, which would swallow these. */
 .pricing .pr-ico{width:18px;height:18px;display:block;flex:none}
