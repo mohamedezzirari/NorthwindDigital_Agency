@@ -277,12 +277,14 @@ export const MARQUEE_WORDS = [
 ];
 
 /* ---------- contact form budget bands ----------
-   NOTE: these are still the rupee bands that were in the original markup, while
-   the packs are priced in US dollars. That mismatch is inherited, not
-   introduced, and is flagged in the README as a content decision to make. */
+   USD, so they match the packs and the quote estimator's output — which lets the
+   estimator pick a band for the visitor directly. The original markup shipped
+   rupee bands (₹50,000 …) next to US-dollar pricing, which was copy-paste
+   residue: the number given for the WhatsApp line is a Moroccan +212.
+   Agreed with the client: one currency site-wide. */
 export const BUDGETS = [
-  "Under ₹50,000",
-  "₹50,000 – ₹2,00,000",
-  "₹2,00,000 – ₹5,00,000",
-  "₹5,00,000+",
+  "Under $2,500",
+  "$2,500 – $7,500",
+  "$7,500 – $20,000",
+  "$20,000+",
 ];
