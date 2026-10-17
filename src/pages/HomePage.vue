@@ -6,8 +6,8 @@
   described, so reordering the site is reordering these lines. Every section owns
   its own data import and its own state.
 
-  Checkpoint 1 restores everything the shell left out. The quote estimator lands
-  next, between Pricing and Contact.
+  Checkpoint 1 restores everything the shell left out. Checkpoint 2 adds the
+  instant quote estimator — the section the rest of the page points at.
 */
 import HeroSection from "../components/sections/HeroSection.vue";
 import MarqueeBar from "../components/sections/MarqueeBar.vue";
@@ -18,6 +18,7 @@ import AboutSection from "../components/sections/AboutSection.vue";
 import ProcessSection from "../components/sections/ProcessSection.vue";
 import TestimonialsSection from "../components/sections/TestimonialsSection.vue";
 import PricingSection from "../components/sections/PricingSection.vue";
+import QuoteEstimator from "../components/sections/QuoteEstimator.vue";
 import ContactSection from "../components/sections/ContactSection.vue";
 </script>
 
@@ -32,6 +33,13 @@ import ContactSection from "../components/sections/ContactSection.vue";
     <ProcessSection />
     <TestimonialsSection />
     <PricingSection />
+    <!--
+      The estimator sits between the published packs and the enquiry form, in
+      that order deliberately: the visitor sees the packs, works out their own
+      number against them, then sends it. It is the section the rest of the page
+      points at.
+    -->
+    <QuoteEstimator />
     <ContactSection />
   </main>
 </template>

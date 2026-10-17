@@ -348,3 +348,90 @@ header{background:color-mix(in srgb,#0A0A0A 85%,transparent)}
 
 .pricing :where(a,button,input):focus-visible{outline:3px solid var(--mint);outline-offset:3px;border-radius:var(--pr-radius-sm)}
 
+/* =====================================================================
+   Instant quote estimator
+   ---------------------------------------------------------------------
+   Two columns: the five questions on the left, a summary card that sticks
+   alongside them on the right. Below 860px the card drops under the form —
+   it has to, because sticky side-by-side stops being usable long before the
+   columns get too narrow to read.
+
+   Every grid track here is minmax(0, ...). Plain `1fr` tracks have a min
+   width of auto, which lets a long unbreakable word push the whole layout
+   wider than its container; that is the same trap the rest of the page was
+   fixed for, so it is not reintroduced here.
+   ===================================================================== */
+
+.qz-eyebrow{margin:0 0 10px;font:600 .8rem/1 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
+
+.qz{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:44px;align-items:start;margin-top:36px}
+@media(max-width:860px){.qz{grid-template-columns:minmax(0,1fr);gap:34px}}
+
+/* ---- the questions ---- */
+
+.qz-controls{min-width:0}
+.qz-group{border:0;padding:0;margin:0 0 30px;min-width:0}
+.qz-group:last-child{margin-bottom:0}
+.qz-legend{padding:0;margin:0 0 12px;font:700 1.15rem/1 "Barlow Condensed","Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.04em;color:var(--ink)}
+.qz-hint{margin:0 0 12px;font-size:.88rem;color:#a0a0a0;max-width:none}
+
+/* auto-fit + min() so the chips fall to one column on a narrow screen instead
+   of squeezing three across into unreadable slivers */
+.qz-chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));gap:10px}
+.qz-chips--narrow{grid-template-columns:repeat(auto-fit,minmax(min(160px,100%),1fr))}
+
+.qz-chip{position:relative;display:grid;gap:5px;padding:14px 16px;background:#171717;border:1px solid #2a2a2a;border-radius:12px;cursor:pointer;transition:border-color .15s ease,background .15s ease}
+.qz-chip:hover{border-color:#4a4a4a}
+
+/* The input is real and focusable — it is just not painted. Styling the label
+   from the input keeps checked/focus state in one place and lets the native
+   radio/checkbox semantics carry over unchanged. */
+.qz-chip input{position:absolute;top:14px;right:16px;width:14px;height:14px;margin:0;accent-color:var(--brand);opacity:0;pointer-events:none}
+.qz-chip:has(input:checked){border-color:var(--brand);background:rgba(209,254,23,.09)}
+.qz-chip:has(input:focus-visible){outline:3px solid var(--mint);outline-offset:3px}
+
+.qz-chip-label{font-weight:600;color:var(--ink);padding-right:22px}
+.qz-chip-desc{font-size:.82rem;line-height:1.45;color:#a0a0a0}
+.qz-chip-price{font-size:.8rem;font-weight:700;color:var(--brand)}
+
+/* add-ons put the price beside the label and let the description run the full
+   width underneath, so the price column stays aligned down the grid */
+.qz-chip--addon .qz-chip-label{grid-column:1;padding-right:0}
+.qz-chip--addon .qz-chip-price{grid-column:2;justify-self:end}
+.qz-chip--addon .qz-chip-desc{grid-column:1 / -1}
+
+.qz-range{width:100%;height:26px;margin:0;accent-color:var(--brand);cursor:pointer}
+.qz-range-ends{display:flex;justify-content:space-between;align-items:baseline;font-size:.78rem;color:#a0a0a0}
+.qz-range-ends strong{color:var(--brand);font-size:1.15rem}
+
+/* ---- the summary card ---- */
+
+.qz-out{position:sticky;top:calc(80px + env(safe-area-inset-top,0px));padding:26px 24px;background:#171717;border:1px solid #2a2a2a;border-radius:16px;min-width:0}
+@media(max-width:860px){.qz-out{position:static}}
+
+.qz-out__label{margin:0 0 8px;font:600 .78rem/1 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#a0a0a0}
+
+.qz-total{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin:0 0 18px}
+.qz-total__range{font:800 clamp(2rem,4.6vw,2.7rem)/1 "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:-.01em;color:var(--brand)}
+.qz-total__unit{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:#a0a0a0}
+
+.qz-facts{list-style:none;display:grid;gap:9px;margin:0 0 18px;padding:16px 0 0;border-top:1px solid #2a2a2a}
+.qz-facts li{display:flex;justify-content:space-between;gap:14px;font-size:.9rem;color:#a0a0a0}
+.qz-facts strong{color:var(--ink);font-weight:600}
+
+.qz-pack{padding:14px 16px;margin:0 0 18px;background:rgba(209,254,23,.07);border:1px solid rgba(209,254,23,.3);border-radius:12px}
+.qz-pack__label{margin:0 0 3px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#a0a0a0}
+.qz-pack__name{margin:0 0 6px;font:800 1.5rem/1 "Barlow Condensed","Arial Narrow",sans-serif;text-transform:uppercase;color:var(--brand)}
+.qz-pack__note{margin:0;font-size:.82rem;line-height:1.5;color:#a0a0a0;max-width:none}
+.qz-pack__note a{color:var(--brand);font-weight:600}
+
+.qz-summary-label{display:block;margin:0 0 6px;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:#a0a0a0}
+.qz-summary{display:block;width:100%;margin:0;padding:12px;background:#0e0e0e;border:1px solid #2a2a2a;border-radius:10px;color:#d8d8d2;font:400 .8rem/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;resize:vertical}
+
+.qz-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px}
+.qz-actions .btn{padding:11px 18px;font-size:.9rem}
+.qz-reset{background:none;border:0;padding:6px 4px;color:#a0a0a0;font:400 .85rem Inter,sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.qz-reset:hover{color:var(--ink)}
+
+.qz-disclaimer{margin:16px 0 0;font-size:.76rem;line-height:1.5;color:#767670;max-width:none}
+
