@@ -18,7 +18,7 @@ import AboutSection from "../components/sections/AboutSection.vue";
 import ProcessSection from "../components/sections/ProcessSection.vue";
 import TestimonialsSection from "../components/sections/TestimonialsSection.vue";
 import PricingSection from "../components/sections/PricingSection.vue";
-import QuoteEstimator from "../components/sections/QuoteEstimator.vue";
+
 import ContactSection from "../components/sections/ContactSection.vue";
 </script>
 
@@ -33,13 +33,7 @@ import ContactSection from "../components/sections/ContactSection.vue";
     <ProcessSection />
     <TestimonialsSection />
     <PricingSection />
-    <!--
-      The estimator sits between the published packs and the enquiry form, in
-      that order deliberately: the visitor sees the packs, works out their own
-      number against them, then sends it. It is the section the rest of the page
-      points at.
-    -->
-    <QuoteEstimator />
+
     <ContactSection />
   </main>
 </template>

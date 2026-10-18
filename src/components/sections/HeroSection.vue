@@ -25,13 +25,7 @@ const CHART = [22, 34, 30, 52, 64, 80, 96];
           people, and build a business they’re proud of — bringing their first $1M closer than ever.</p>
         <div class="cta">
           <a class="btn" :href="CTA.href">{{ CTA.label }}</a>
-          <!--
-            The estimator is surfaced in the hero as well as in its own section.
-            The point of this rebuild is that the site is a working tool rather
-            than a business card, so the tool should be reachable without
-            scrolling past eight sections to find it.
-          -->
-          <a class="btn ghost" href="#quote">Get an instant estimate</a>
+
           <a class="btn ghost" href="#projects">Explore Our Work</a>
         </div>
       </div>
