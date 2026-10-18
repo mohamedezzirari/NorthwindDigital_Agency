@@ -19,7 +19,7 @@
 */
 import { reactive, ref, watch } from "vue";
 import { SITE, SERVICE_NAMES, BUDGETS } from "../../data/content.js";
-import { pendingEstimate } from "../../lib/quote.js";
+
 
 /* Empty string means "fall back to the visitor's email app". */
 const FORM_ENDPOINT = "";
@@ -113,32 +113,7 @@ function reset() {
   for (const field of Object.keys(errors)) errors[field] = "";
 }
 
-/*
-  An estimate handed over from the quote estimator, two sections above.
 
-  Three of the five fields fill themselves, which is the whole payoff for having
-  configured the project first: nobody should type the same answers twice. Name
-  and email are deliberately left alone — they are the only things the form
-  still needs from the visitor.
-
-  The matching error slots clear at the same time. Without that, a message like
-  "Choose a service." would sit under a select that now has a value, because
-  errors are only recomputed on submit.
-*/
-watch(pendingEstimate, (payload) => {
-  if (!payload) return;
-
-  form.service = payload.service || form.service;
-  form.budget = payload.budget || form.budget;
-  form.msg = payload.message || form.msg;
-
-  errors.service = "";
-  errors.budget = "";
-  errors.msg = "";
-
-  status.state = "";
-  status.text = "";
-});
 </script>
 
 <template>
