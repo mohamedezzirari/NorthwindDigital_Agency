@@ -125,17 +125,12 @@ function onPlanCta(row, index) {
 }
 
 /* The at-a-glance strip: a visual row of ticks and crosses, plus a spoken
-   version for anyone who cannot see it.
-
-   Both are derived from PLANS instead of naming the ids literally. The old form
-   spelled out all three packs, so removing one left the strip announcing a tier
-   that no longer existed. Deriving them means the number of marks, their order
-   and the spoken labels all follow the data automatically, and stay in the same
-   order as the cards rendered above. */
+   version for anyone who cannot see it. */
 const mark = (on) => (on ? "✓" : "✕");
-const marksFor = (row) => PLANS.map((plan) => mark(row[plan.id])).join(" · ");
+const marksFor = (row) => `${mark(row.starter)} · ${mark(row.growth)} · ${mark(row.scale)}`;
 const spokenFor = (row) =>
-  PLANS.map((plan) => `${plan.name}: ${row[plan.id] ? "yes" : "no"}.`).join(" ");
+  `Starter: ${row.starter ? "yes" : "no"}. Growth: ${row.growth ? "yes" : "no"}. ` +
+  `Scale: ${row.scale ? "yes" : "no"}.`;
 </script>
 
 <template>

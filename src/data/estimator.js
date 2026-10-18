@@ -117,21 +117,22 @@ function roundHundred(n) {
 }
 
 /*
-  Which published pack this project belongs to.
-
-  Two tiers since Starter was removed, so this is a floor plus an escalation:
-  anything that is not a serious engagement lands on Growth, and only a web app,
-  a four-figure retainer or an $8k+ build escalates to Scale. Scope and
-  marketing spend both still decide that — a small site with a full-funnel
-  retainer is a bigger engagement than a large site with nothing behind it.
-
-  The thresholds that used to split Growth from Starter went with Starter.
-  Keeping them would have been dead code that still read as though the entry
-  tier existed.
+  Which published pack this project belongs to. Scope and marketing spend both
+  matter, so neither alone decides it — a small site with a full-funnel retainer
+  is a bigger engagement than a large site with nothing behind it.
 */
 function recommendPack({ typeId, oneoff, monthly }) {
   if (typeId === "webapp" || monthly >= 1000 || oneoff >= 8000) return "scale";
-  return "growth";
+  if (
+    typeId === "business" ||
+    typeId === "ecommerce" ||
+    typeId === "redesign" ||
+    monthly >= 400 ||
+    oneoff >= 4000
+  ) {
+    return "growth";
+  }
+  return "starter";
 }
 
 /* The budget band a price falls into, using the SAME strings the contact form

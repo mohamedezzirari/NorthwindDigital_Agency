@@ -4,7 +4,6 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import { PLANS, money } from "../src/data/pricing.js";
 
 /* Resolved from this file rather than from the working directory, so the suite
    behaves identically on a developer machine and on the CI runner no matter
@@ -45,31 +44,22 @@ check("6 project cards", shots === 6, `got ${shots}`);
 const tp = count(/class="tp"/g);
 check("6 team members", tp === 6, `got ${tp}`);
 const plans = count(/<li class="plan/g);
-check("2 pricing plans", plans === 2, `got ${plans}`);
+check("3 pricing plans", plans === 3, `got ${plans}`);
 const steps = count(/<li><h3>/g);
 check("6 process steps", steps === 6, `got ${steps}`);
 const quotes = count(/<blockquote/g);
 check("3 testimonials", quotes === 3, `got ${quotes}`);
 const checks = count(/class="pr-ico"/g);
-check("11 feature ticks (5+6)", checks === 11, `got ${checks}`);
+check("15 feature ticks (4+5+6)", checks === 15, `got ${checks}`);
 const limitPills = count(/class="plan__limits"/g);
-check(`${PLANS.length} limit lists`, limitPills === PLANS.length, `got ${limitPills}`);
+check("3 limit lists", limitPills === 3, `got ${limitPills}`);
 
 console.log("\n-- pricing values (monthly, no promo) --");
-/* Derived from PLANS rather than from a hand-typed list of strings and hexes.
-   The old form named all three packs explicitly — "$390", the #555a7a accent, a
-   fixed count of 3 — so removing one pack broke four assertions on data that had
-   merely moved. These now follow whatever is actually published. */
-for (const plan of PLANS) {
-  const price = money(plan.monthly);
-  check(`price ${price} (${plan.id})`, html.includes(`>${price}<`), "not found");
+for (const price of ["$390", "$790", "$1,490"]) {
+  check(`price ${price}`, html.includes(`>${price}<`), "not found");
 }
-check(
-  "all 'was' prices hidden while monthly",
-  count(/class="plan__was" hidden/g) === PLANS.length,
-  `got ${count(/class="plan__was" hidden/g)}`
-);
-check("plan accents bound inline", PLANS.every((plan) => html.includes(plan.accent)));
+check("all 'was' prices hidden while monthly", count(/class="plan__was" hidden/g) === 3, `got ${count(/class="plan__was" hidden/g)}`);
+check("plan accents bound inline", ["#555a7a", "#3D4BFF", "#0E9E7E"].every((c) => html.includes(c)));
 
 console.log("\n-- relative urls only (sub-path safe) --");
 const absoluteRefs = [...html.matchAll(/(?:src|href)="(\/[^"]*)"/g)].map((m) => m[1]);

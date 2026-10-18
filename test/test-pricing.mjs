@@ -42,24 +42,25 @@ for (const plan of PLANS) {
 }
 
 console.log("\n-- monthly equivalents of the annual prices --");
+eq("starter annual/12", priceFor(byId.starter, "annual").grossMonthly, 312);
 eq("growth  annual/12", priceFor(byId.growth, "annual").grossMonthly, 632);
 eq("scale   annual/12", priceFor(byId.scale, "annual").grossMonthly, 1192);
 
 console.log("\n-- monthly pricing, no promo --");
-eq("growth netMonthly", priceFor(byId.growth, "monthly").netMonthly, 790);
-eq("growth netTotal", priceFor(byId.growth, "monthly").netTotal, 790);
+eq("starter netMonthly", priceFor(byId.starter, "monthly").netMonthly, 390);
+eq("starter netTotal", priceFor(byId.starter, "monthly").netTotal, 390);
 eq(
-  "growth note",
-  billingNote(byId.growth, "monthly", priceFor(byId.growth, "monthly"), 0, null),
-  "Billed $790 monthly, cancel anytime · 14-day free trial"
+  "starter note",
+  billingNote(byId.starter, "monthly", priceFor(byId.starter, "monthly"), 0, null),
+  "Billed $390 monthly, cancel anytime · 14-day free trial"
 );
 
 console.log("\n-- annual pricing, no promo --");
-eq("growth annual netTotal", priceFor(byId.growth, "annual").netTotal, 7584);
+eq("starter annual netTotal", priceFor(byId.starter, "annual").netTotal, 3744);
 eq(
-  "growth annual note",
-  billingNote(byId.growth, "annual", priceFor(byId.growth, "annual"), 0, null),
-  "Billed $7,584 once a year (save 20%) · 14-day free trial"
+  "starter annual note",
+  billingNote(byId.starter, "annual", priceFor(byId.starter, "annual"), 0, null),
+  "Billed $3,744 once a year (save 20%) · 14-day free trial"
 );
 eq(
   "scale annual note",
@@ -70,29 +71,21 @@ eq(
 console.log("\n-- promo --");
 eq("NORTHWIND10 rate", PROMOS.NORTHWIND10, 0.1);
 eq("LAUNCH15 rate", PROMOS.LAUNCH15, 0.15);
-const promoPrice = priceFor(byId.growth, "monthly", PROMOS.NORTHWIND10);
-eq("growth with NORTHWIND10 netMonthly", promoPrice.netMonthly, 711);
+const promoPrice = priceFor(byId.starter, "monthly", PROMOS.NORTHWIND10);
+eq("starter with NORTHWIND10 netMonthly", promoPrice.netMonthly, 351);
 eq(
-  "growth promo note",
-  billingNote(byId.growth, "monthly", promoPrice, PROMOS.NORTHWIND10, "NORTHWIND10"),
-  "Billed $711 monthly, cancel anytime · promo NORTHWIND10 applied · 14-day free trial"
+  "starter promo note",
+  billingNote(byId.starter, "monthly", promoPrice, PROMOS.NORTHWIND10, "NORTHWIND10"),
+  "Billed $351 monthly, cancel anytime · promo NORTHWIND10 applied · 14-day free trial"
 );
 eq(
   "no promo mentioned when rate is 0",
-  billingNote(byId.growth, "monthly", priceFor(byId.growth, "monthly"), 0, "NORTHWIND10").includes("promo"),
+  billingNote(byId.starter, "monthly", priceFor(byId.starter, "monthly"), 0, "NORTHWIND10").includes("promo"),
   false
 );
 
 console.log("\n-- shape / invariants --");
-eq("two plans", PLANS.length, 2);
-eq("the removed starter pack is really gone", "starter" in byId, false);
-/* A compare row missing a plan's key would render as a silent ✕ in the strip —
-   mark() turns anything falsy into a cross — so the absence has to be loud here. */
-eq(
-  "every compare row carries a key per plan",
-  QUICK_COMPARE.every((row) => PLANS.every((plan) => plan.id in row)),
-  true
-);
+eq("three plans", PLANS.length, 3);
 eq("exactly one recommended", PLANS.filter((p) => p.recommended).length, 1);
 eq("recommended is growth", PLANS.find((p) => p.recommended).id, "growth");
 eq("one badge", PLANS.filter((p) => p.badge).length, 1);

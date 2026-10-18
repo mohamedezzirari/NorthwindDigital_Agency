@@ -301,16 +301,12 @@ header{background:color-mix(in srgb,#0A0A0A 85%,transparent)}
 .switch__opt[aria-pressed="true"] .pill--save{background:rgba(255,255,255,.18);color:#fff}
 .pricing__next{margin:10px 0 0;max-width:none;font-size:var(--pr-t-small);color:var(--pr-muted)}
 
-/* ---- card grid: 1 -> 2 columns ----
-   Two packs, so two columns from 640px up. The third column that used to appear
-   at 960px has been dropped: with only two cards it left an empty cell on the
-   right of every desktop layout. The odd-card rule below is what makes this
-   survive a pack being added back — three cards then fill two columns with the
-   last one centred instead of leaving a hole. */
+/* ---- card grid: 1 -> 2 -> 3 columns ---- */
 .plans{list-style:none;margin:0;padding:0;display:grid;gap:var(--pr-gap);grid-template-columns:minmax(0,1fr)}
 @media (min-width:640px){.plans{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:960px){.plans{grid-template-columns:repeat(3,minmax(0,1fr))}}
 /* an odd card wrapping at 2 columns gets centred rather than leaving a hole */
-@media (min-width:640px){
+@media (min-width:640px) and (max-width:959px){
   .plans>:last-child:nth-child(odd){grid-column:1/-1;width:100%;max-width:calc(50% - var(--pr-gap)/2);justify-self:center}
 }
 

@@ -22,6 +22,24 @@ export const PROMOS = { NORTHWIND10: 0.1, LAUNCH15: 0.15 };
 
 export const PLANS = [
   {
+    id: "starter",
+    name: "Starter",
+    tagline: "Get online fast with the essentials.",
+    monthly: 390,
+    annual: 3744,
+    recommended: false,
+    badge: null,
+    accent: "#555a7a",
+    cta: "Choose Starter",
+    limits: ["2 seats", "10 GB storage", "100k requests/mo"],
+    features: [
+      "Custom 5-page website",
+      "Mobile-responsive design",
+      "Basic on-page SEO",
+      "Monthly performance report",
+    ],
+  },
+  {
     id: "growth",
     name: "Growth",
     tagline: "The pack most clients choose.",
@@ -32,16 +50,12 @@ export const PLANS = [
     accent: "#3D4BFF",
     cta: "Start with Growth",
     limits: ["5 seats", "50 GB storage", "1M requests/mo"],
-    /* Growth is the entry pack now that Starter is gone, so it carries the
-       baseline promises Starter used to make (the monthly report) alongside its
-       own. The old "Everything in Starter" bullet went with it — naming a pack
-       that no longer exists is worse than either keeping or dropping it. */
     features: [
+      "Everything in Starter",
       "Up to 15 pages & CMS",
       "Conversion copywriting",
       "SEO & content strategy",
       "A/B testing & landing pages",
-      "Monthly performance report",
     ],
   },
   {
@@ -69,9 +83,9 @@ export const PLANS = [
 /* The three rows in the "at a glance" strip, as booleans per plan id so the
    template can render ticks and crosses without duplicating the copy. */
 export const QUICK_COMPARE = [
-  { label: "Priority support", growth: false, scale: true },
-  { label: "Dedicated strategist", growth: false, scale: true },
-  { label: "A/B testing", growth: true, scale: true },
+  { label: "Priority support", starter: false, growth: false, scale: true },
+  { label: "Dedicated strategist", starter: false, growth: false, scale: true },
+  { label: "A/B testing", starter: false, growth: true, scale: true },
 ];
 
 /*
