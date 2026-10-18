@@ -1,8 +1,17 @@
-name: Deploy static site to GitHub Pages
+name: Deploy to GitHub Pages
 
-# Publishes the static site (index.html, css/, js/, assets/) to GitHub Pages.
-# The local Express + SQLite backend in server/ is deliberately NOT published,
-# and neither is original-single-file.html — only the files the site needs.
+# Builds the Vue app and publishes the static output in dist/.
+#
+# The legacy Express + SQLite backend in server/ is never published: it is not
+# part of the build, so nothing here has to actively exclude it. Only what
+# vite-ssg emits reaches the artifact.
+#
+# There is deliberately no actions/configure-pages step. The site uses
+# base: "./" — every asset reference is relative — so there is no repository
+# sub-path to inject, and configure-pages is the step that tries to call the
+# Pages API, which is where the "Resource not accessible by integration" error
+# came from. Skipping it removes both the permission problem and an API call
+# whose result the build does not use.
 
 on:
   push:
@@ -25,28 +34,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v6
+      - name: Set up Node
+        uses: actions/setup-node@v5
         with:
-          enablement: true
+          node-version: 22
+          cache: npm
 
-      - name: Assemble the site
-        run: |
-          set -e
-          mkdir -p _site
-          cp index.html _site/
-          cp -r css js assets _site/
-          # Belt and braces: never publish the backend or the dev-only files.
-          rm -rf _site/server _site/original-single-file.html
-          # Prevent Jekyll from touching the output.
-          touch _site/.nojekyll
-          echo "--- published files ---"
-          find _site -type f | sort
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # Nothing in the output is named _site or starts with _, so Jekyll would
+      # leave it alone anyway — this is insurance, not a requirement.
+      - name: Keep Jekyll out of the output
+        run: touch dist/.nojekyll
+
+      - name: Show what gets published
+        run: find dist -type f | sort
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: _site
+          path: dist
 
   deploy:
     needs: build
