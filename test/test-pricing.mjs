@@ -1,6 +1,9 @@
 /* Exercise the pure pricing maths directly, in Node, with no DOM.
    These are the numbers a client reads, so they are worth pinning down: if a
-   price, a percentage or a rounding rule changes, this fails loudly. */
+   price, a percentage or a rounding rule changes, this fails loudly.
+
+   The import is RELATIVE rather than an absolute file URL, so the suite runs on
+   any machine and not just the one it was written on. */
 import {
   PLANS,
   PROMOS,
@@ -10,7 +13,7 @@ import {
   money,
   priceFor,
   savingsPct,
-} from "file:///C:/Users/Laptop/Desktop/Team/src/data/pricing.js";
+} from "../src/data/pricing.js";
 
 let pass = 0;
 let fail = 0;

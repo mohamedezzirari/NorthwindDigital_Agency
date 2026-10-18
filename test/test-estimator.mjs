@@ -7,7 +7,12 @@
   only defence is that there is one source of truth for "what the defaults
   cost".
 
-  Run:  node C:\Users\Laptop\AppData\Local\Temp\opencode\test-estimator.mjs
+  Run:  npm test        (or: node test/test-estimator.mjs, from anywhere)
+
+  The imports below are RELATIVE on purpose. They were absolute file URLs naming
+  one machine's path, which works locally and fails on any other machine —
+  including the CI runner, where it surfaced as ERR_MODULE_NOT_FOUND. See the
+  portability pre-flight in run-all.mjs, which now guards against exactly this.
 */
 import {
   ADDONS,
@@ -19,9 +24,9 @@ import {
   budgetBandFor,
   estimate,
   summaryFor,
-} from "file:///C:/Users/Laptop/Desktop/Team/src/data/estimator.js";
-import { BUDGETS, SERVICE_NAMES } from "file:///C:/Users/Laptop/Desktop/Team/src/data/content.js";
-import { PLANS } from "file:///C:/Users/Laptop/Desktop/Team/src/data/pricing.js";
+} from "../src/data/estimator.js";
+import { BUDGETS, SERVICE_NAMES } from "../src/data/content.js";
+import { PLANS } from "../src/data/pricing.js";
 
 let pass = 0;
 const fails = [];

@@ -3,11 +3,14 @@
   suite. Exit code is non-zero if any suite fails, so it can gate a deploy.
 */
 import { spawnSync } from "node:child_process";
+import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
 /* Every suite lives beside this runner, so the directory is this file's own. */
 const DIR = path.dirname(fileURLToPath(import.meta.url));
+
+/* Declared before the pre-flight below, which iterates it. */
 const SUITES = [
   ["test-pricing.mjs", "pricing model"],
   ["test-estimator.mjs", "estimator model"],
@@ -15,6 +18,37 @@ const SUITES = [
   ["check-cp2.mjs", "CP2 estimator structure"],
   ["check-cp3.mjs", "CP3 polish"],
 ];
+
+/*
+  Portability pre-flight.
+
+  The suites import the application's source modules directly, so a suite that
+  hard-codes a path passes on the machine that wrote it and fails on every other
+  machine. That is exactly how two of these suites reached CI with absolute file
+  URLs in their imports: they were green locally and died on the Linux runner
+  with ERR_MODULE_NOT_FOUND. Checking the sources turns a confusing CI-only
+  failure into a named one, and does it before anything is spawned.
+
+  The patterns are deliberately broad. A suite should never mention a drive
+  letter, a home directory or a runner path at all.
+*/
+const MACHINE_PATH = /file:\/\/\/|[A-Za-z]:[\\/](?:Users|Windows|home)|\/home\/runner|AppData/;
+/* Only the suites are scanned. This runner carries the pattern in its own
+   source, so reading it would only ever match itself. */
+const portability = [];
+for (const [file] of SUITES) {
+  const match = readFileSync(path.join(DIR, file), "utf8").match(MACHINE_PATH);
+  if (match) portability.push(`${file}: ${match[0]}`);
+}
+
+if (portability.length) {
+  console.log("\n  FAIL  portability pre-flight — machine-specific paths found:");
+  for (const p of portability) console.log("        " + p);
+  console.log("\n  These pass on the author's machine and fail on every other one,");
+  console.log("  including the CI runner. Import source modules relatively.");
+  process.exit(1);
+}
+console.log("\n  ok    portability pre-flight — no machine-specific paths");
 
 const rows = [];
 let bad = 0;
