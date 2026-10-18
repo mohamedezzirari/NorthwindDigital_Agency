@@ -13,6 +13,35 @@
    without photos never end up the same colour. */
 const HUES = [235, 160, 330, 25, 200, 280];
 
+/*
+  Intrinsic pixel sizes, read from the files themselves with a header parser.
+
+  The badge face is a fixed 150px square with object-fit:cover, so these never
+  change what anyone sees — they exist so the browser knows each portrait's
+  aspect ratio before its bytes arrive, and does not settle the badge twice as
+  six images decode. A single hardcoded pair would be wrong for one branch or
+  the other: the photographs are square and the generated initials tile is not.
+
+  Keep this in step with the files in public/assets and with the fallback SVG
+  below if either changes shape.
+*/
+const PHOTO_SIZE = {
+  "assets/photo1.jpg": [480, 480],
+  "assets/photo2.jpg": [480, 480],
+  "assets/photo3.jpg": [480, 480],
+  "assets/photo4.jpg": [480, 480],
+  "assets/photo5.jpg": [960, 960],
+  "assets/photo6.jpg": [960, 960],
+};
+
+/* Matches the viewBox of the fallback SVG generated below. */
+const FALLBACK_SIZE = [400, 500];
+
+export function avatarSizeFor(member) {
+  const [width, height] = PHOTO_SIZE[member.photo] || FALLBACK_SIZE;
+  return { width, height };
+}
+
 export function avatarFor(member, index) {
   if (member.photo) return member.photo;
 

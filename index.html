@@ -12,15 +12,44 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
   <!--
-    Social preview. og:image is deliberately missing: it must be an ABSOLUTE url
-    to work, and there is no canonical domain yet. It is added at Checkpoint 3
-    once the final host is known.
+    The canonical host. Every absolute URL below (og:url, og:image, the schema.org
+    logo) is derived from this one string, so a move to a real domain means editing
+    it — and only it — here. Nothing in src/ needs to change: the app only ever
+    emits relative URLs, which is what makes it portable across sub-path hosts.
+  -->
+  <link rel="canonical" href="https://mohamedezzirari.github.io/NorthwindDigital_Agency/">
+
+  <!--
+    Social preview. og:image must be an ABSOLUTE url — scrapers do not resolve
+    relative ones — so it is written out in full. The asset is a purpose-built
+    1200x630 card (ratio 1.905, the ~1.91 that og:image wants) generated from the
+    real design tokens: #14173D ground, #6FE3C1 rail, the wordmark centred and a
+    dimmed echo of the hero chart. Every other image in the project is square or
+    undersized, so none of them would have cropped well.
   -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Northwind Digital">
+  <meta property="og:locale" content="en">
+  <meta property="og:url" content="https://mohamedezzirari.github.io/NorthwindDigital_Agency/">
   <meta property="og:title" content="Northwind Digital — Build it. Launch it. Grow it.">
   <meta property="og:description"
     content="Websites, web apps and marketing campaigns built by one team, so your business gets found and grows.">
+  <meta property="og:image" content="https://mohamedezzirari.github.io/NorthwindDigital_Agency/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt"
+    content="Northwind Digital — Build it. Launch it. Grow it.">
+
+  <!-- Twitter reads twitter:*, and falls back to og:*, but naming both is what
+       makes the large-image card reliable rather than accidental. -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Northwind Digital — Build it. Launch it. Grow it.">
+  <meta name="twitter:description"
+    content="Websites, web apps and marketing campaigns built by one team, so your business gets found and grows.">
+  <meta name="twitter:image" content="https://mohamedezzirari.github.io/NorthwindDigital_Agency/assets/og.png">
+  <meta name="twitter:image:alt"
+    content="Northwind Digital — Build it. Launch it. Grow it.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,17 +58,42 @@
     rel="stylesheet">
 
   <!--
-    Structured data. The email mirrors the placeholder in src/data/content.js;
-    keep the two in step until real contact details replace them.
-    No "logo" field yet: schema.org expects an ABSOLUTE url there, and there is
-    no canonical domain. It is added at Checkpoint 3 along with og:image.
+    Structured data. The email, WhatsApp number and Facebook URL mirror the
+    placeholders in src/data/content.js — keep the two in step until real contact
+    details replace them.
+
+    Organization and WebSite share one @id so the graph links them rather than
+    describing two unrelated things, and WebSite.isPartOf points back at the
+    Organization. "logo" needs an ABSOLUTE url, which is why it was absent until
+    the host was settled.
   -->
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Northwind Digital",
-      "email": "hello@example.com"
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://mohamedezzirari.github.io/NorthwindDigital_Agency/#organization",
+          "name": "Northwind Digital",
+          "url": "https://mohamedezzirari.github.io/NorthwindDigital_Agency/",
+          "logo": "https://mohamedezzirari.github.io/NorthwindDigital_Agency/assets/og.png",
+          "description": "Websites, web apps and marketing campaigns built by one team, so your business gets found and grows.",
+          "email": "hello@example.com",
+          "sameAs": [
+            "https://facebook.com"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://mohamedezzirari.github.io/NorthwindDigital_Agency/#website",
+          "name": "Northwind Digital",
+          "url": "https://mohamedezzirari.github.io/NorthwindDigital_Agency/",
+          "inLanguage": "en",
+          "isPartOf": {
+            "@id": "https://mohamedezzirari.github.io/NorthwindDigital_Agency/#organization"
+          }
+        }
+      ]
     }
   </script>
 </head>

@@ -15,7 +15,7 @@
   without re-authoring the content.
 */
 import { TEAM } from "../../data/content.js";
-import { avatarFor } from "../../lib/avatar.js";
+import { avatarFor, avatarSizeFor } from "../../lib/avatar.js";
 
 /* First-appearance order, deduped — Set preserves insertion order, so the
    legend reads Development Team then Marketing Team as long as the data does. */
@@ -32,7 +32,8 @@ const groups = [...new Set(TEAM.map((member) => member.group))];
       <div class="team-photo">
         <figure v-for="(member, i) in TEAM" :key="member.name" class="tp">
           <div class="tp-face">
-            <img :src="avatarFor(member, i)" :alt="`Portrait of ${member.name}`" loading="lazy">
+            <img :src="avatarFor(member, i)" :alt="`Portrait of ${member.name}`"
+              v-bind="avatarSizeFor(member)" loading="lazy" decoding="async">
           </div>
           <div class="tp-strap" aria-hidden="true"></div>
           <figcaption class="tp-badge">

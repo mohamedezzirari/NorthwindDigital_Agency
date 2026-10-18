@@ -24,24 +24,26 @@ const mailto = `mailto:${SITE.email}`;
       <div class="cols">
         <div>
           <a class="logo" href="#home" style="color:#fff">
+            <!-- Lazy: the footer logo is far below the fold and is never the
+                 thing the visitor is waiting for. -->
             <img class="lg" :src="logo" alt="Northwind Digital" width="737" height="167"
-              style="height:54px;width:auto">
+              loading="lazy" decoding="async" style="height:54px;width:auto">
           </a>
           <p style="margin-top:12px">Web development and digital marketing for businesses that want to grow.</p>
         </div>
 
         <div>
-          <h4>Navigate</h4>
+          <h2>Navigate</h2>
           <a v-for="link in NAV_LINKS" :key="link.href" :href="link.href">{{ link.label }}</a>
         </div>
 
         <div>
-          <h4>Services</h4>
+          <h2>Services</h2>
           <a v-for="service in FOOTER_SERVICES" :key="service.label" :href="service.href">{{ service.label }}</a>
         </div>
 
         <div>
-          <h4>Contact</h4>
+          <h2>Contact</h2>
           <a :href="mailto">{{ SITE.email }}</a>
           <div>
             <a v-for="(url, name) in SITE.socials" :key="name" :href="url" target="_blank" rel="noopener">{{

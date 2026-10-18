@@ -16,6 +16,16 @@ import HomePage from "./pages/HomePage.vue";
 </script>
 
 <template>
+  <!--
+    Skip link. It is the first focusable thing on the page, so a keyboard or
+    screen-reader visitor reaches the content without walking the whole nav on
+    every jump. It is off-screen until focused — not display:none, which would
+    remove it from the tab order entirely and defeat the point. The target is
+    <main tabindex="-1"> in HomePage.vue, because <main> is not natively
+    focusable and without the tabindex the fragment link moves the viewport
+    without moving focus.
+  -->
+  <a class="skip" href="#main">Skip to content</a>
   <SiteHeader />
   <HomePage />
   <SiteFooter />

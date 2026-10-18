@@ -16,6 +16,11 @@ section{padding:92px 0}
 .btn.ghost{background:transparent;color:inherit;border-color:currentColor}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
 :focus-visible{outline:3px solid var(--mint);outline-offset:3px}
+/* Skip link: parked just above the viewport and slid back on focus. Moving it
+   with transform rather than hiding it with display:none is the whole point —
+   display:none takes it out of the tab order, so it could never be reached. */
+.skip{position:absolute;left:16px;top:16px;z-index:100;transform:translateY(-260%);background:var(--brand);color:#fff;padding:12px 22px;border-radius:10px;font:600 1rem Inter,sans-serif;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.25);transition:transform .15s}
+.skip:focus{transform:translateY(0)}
 header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
 /* Nav bar: three zones - logo left, links centred on the page itself, CTA right.
    The two equal 1fr flanks are what centre the links; a plain flex row centres
@@ -113,14 +118,14 @@ textarea{min-height:130px;resize:vertical}
 .contact-list{list-style:none;padding:0;margin:24px 0;display:grid;gap:10px}
 footer{background:var(--deep);color:#b9bfe6;padding:60px 0 30px;font-size:.94rem}
 footer .cols{grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.3fr);gap:30px}@media(max-width:860px){footer .cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
-footer h4{color:#fff;margin:0 0 12px;font:700 1rem "Space Grotesk"}footer a{display:block;text-decoration:none;padding:3px 0}footer a:hover{color:var(--mint)}
+footer h2{color:#fff;margin:0 0 12px;font:700 1rem "Space Grotesk"}footer a{display:block;text-decoration:none;padding:3px 0}footer a:hover{color:var(--mint)}
 .copy{border-top:1px solid #2b2f66;margin-top:36px;padding-top:20px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 /* ===== Cinematic dark theme: black, acid lime, condensed type ===== */
 :root,:root:not([data-theme="light"]),:root[data-theme="dark"]{--bg:#0A0A0A;--surface:#141414;--ink:#F4F4F0;--muted:#9C9C94;--line:#262626;--brand:#D1FE17;--mint:#D1FE17;--deep:#000;--on-deep:#F4F4F0}
 h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",Impact,sans-serif;text-transform:uppercase;font-weight:800;letter-spacing:-.005em;line-height:.92}
 h1{font-size:clamp(3.4rem,11vw,8rem)}h2{font-size:clamp(2.6rem,7vw,5rem)}h3{font-size:1.6rem;font-weight:700;line-height:1}
-.logo,.ico,.steps li:before,.stat strong,.kpi strong,footer h4,.mission{font-family:"Barlow Condensed","Arial Narrow",sans-serif}
+.logo,.ico,.steps li:before,.stat strong,.kpi strong,footer h2,.mission{font-family:"Barlow Condensed","Arial Narrow",sans-serif}
 .logo{text-transform:uppercase;letter-spacing:.04em;font-size:1.5rem;font-weight:800}
 .btn,.links a.btn{background:var(--brand);border-color:var(--brand);color:#0A0A0A}
 .btn.ghost,.hero .btn.ghost{background:transparent;color:var(--ink);border-color:#444}

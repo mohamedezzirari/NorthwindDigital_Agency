@@ -23,7 +23,7 @@ import ContactSection from "../components/sections/ContactSection.vue";
 </script>
 
 <template>
-  <main>
+  <main id="main" tabindex="-1">
     <HeroSection />
     <MarqueeBar />
     <ServicesSection />
