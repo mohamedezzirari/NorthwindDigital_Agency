@@ -109,6 +109,31 @@ header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 8
 blockquote{margin:0}.quote{font-size:1.02rem}.who{margin-top:14px;font-weight:600;font-size:.92rem}
 .note{font-size:.85rem;color:var(--muted)}
 .stars{font-size:1.05rem;letter-spacing:2px;margin-bottom:10px;color:var(--line)}.stars .on{color:var(--brand)}
+
+/* ---------- client feedback ----------
+   Header carries the headline average beside the title; cards get a quote
+   glyph, stars, and an avatar disc footer. Everything uses the existing
+   tokens (--brand lime, --surface, --line) so it inherits whatever theme the
+   page is running. */
+.tst-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:30px}
+.tst-head>div:first-child{max-width:56ch}
+.tst-score{display:grid;justify-items:center;gap:2px;padding:18px 26px;border:1px solid var(--line);border-radius:18px;background:var(--surface);text-align:center}
+.tst-score__num{font:800 clamp(2.4rem,6vw,3.2rem)/1 "Barlow Condensed","Arial Narrow",sans-serif;color:var(--brand)}
+.tst-score .stars{margin:0;font-size:1.15rem}
+.tst-score__cap{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tst-card{position:relative;overflow:hidden;display:flex;flex-direction:column}
+/* Oversized quote glyph behind the card's top-right corner, in the brand
+   colour at low opacity — decoration only, hence aria-hidden in the template
+   and pointer-events:none here. */
+.tst-card:before{content:"\201D";position:absolute;top:-14px;right:10px;font:800 6.5rem/1 "Barlow Condensed","Arial Narrow",sans-serif;color:var(--brand);opacity:.14;pointer-events:none}
+.tst-card .quote{flex:1;position:relative;font-size:1.02rem}
+.tst-by{display:flex;align-items:center;gap:12px;margin-top:18px}
+.tst-av{display:grid;place-items:center;width:44px;height:44px;flex:none;border-radius:50%;background:var(--brand);color:#0A0A0A;font:800 1rem "Barlow Condensed","Arial Narrow",sans-serif;letter-spacing:.02em}
+.tst-who{display:grid;gap:2px;min-width:0}
+.tst-name{font-weight:600;font-size:.95rem}
+.tst-co{font-size:.85rem;color:var(--muted)}
+.tst-card .note{margin-top:10px}
+@media(max-width:760px){.tst-head{flex-direction:column;align-items:flex-start}.tst-score{justify-items:start;justify-self:start;text-align:left}}
 form{display:grid;gap:16px}.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}@media(max-width:600px){.row{grid-template-columns:minmax(0,1fr)}}
 label{font-weight:500;font-size:.92rem;display:grid;gap:6px}
 input,select,textarea{font:inherit;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);width:100%}

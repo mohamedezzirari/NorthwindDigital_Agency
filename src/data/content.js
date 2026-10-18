@@ -243,17 +243,20 @@ export const STEPS = [
 export const TESTS = [
   {
     quote: "Sample testimonial text. Replace with real client feedback about working with your agency.",
-    who: "Client Name, Company",
+    name: "Client Name",
+    company: "Company",
     stars: 5,
   },
   {
     quote: "Sample testimonial text. Replace with real client feedback about the results you delivered.",
-    who: "Client Name, Company",
+    name: "Client Name",
+    company: "Company",
     stars: 5,
   },
   {
     quote: "Sample testimonial text. Replace with real client feedback about communication and process.",
-    who: "Client Name, Company",
+    name: "Client Name",
+    company: "Company",
     stars: 4,
   },
 ];
