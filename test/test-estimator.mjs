@@ -118,16 +118,32 @@ eq("retainer: full funnel escalates the pack", fullFunnel.packId, "scale");
 
 /* ---------- pack recommendation ---------- */
 const landing = estimate({ ...DEFAULT_INPUT, typeId: "landing" });
-eq("pack: landing page is small enough for starter", landing.packId, "starter");
+/* The smallest project now lands on Growth: the entry pack it used to fall into
+   has been removed, so the floor of every recommendation moved up with it. */
+eq("pack: even the smallest project now lands on growth", landing.packId, "growth");
 
 const app = estimate({ ...DEFAULT_INPUT, typeId: "webapp" });
 eq("pack: web app always scales", app.packId, "scale");
 
-/* every pack name must be a real published plan name */
-for (const id of ["starter", "growth", "scale"]) {
+/*
+  Every pack the estimator can recommend must be a real published plan.
+
+  An explicit list rather than a derived one, because a split between the two is
+  exactly what happened when Starter was deleted from PLANS: recommendPack()
+  kept returning it and NOTHING failed — the estimator cheerfully recommended a
+  pack that was no longer for sale. The first loop guards that direction; the
+  check below it closes the other, so a pack can never be published while being
+  unreachable from a recommendation.
+*/
+const RECOMMENDABLE = ["growth", "scale"];
+for (const id of RECOMMENDABLE) {
   const name = PLANS.find((p) => p.id === id)?.name;
   check(`pack: ${id} resolves to a published plan`, typeof name === "string" && name.length > 0);
 }
+check(
+  "pack: every published plan is reachable by recommendation",
+  PLANS.every((p) => RECOMMENDABLE.includes(p.id))
+);
 
 /* ---------- budget bands ---------- */
 eq("band: exact 2500 boundary is the second band", budgetBandFor(2500), BUDGETS[1]);
