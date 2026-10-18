@@ -1,81 +1,141 @@
 # Northwind Digital — website
 
-A one-page marketing site for a web development & digital marketing agency.
+A one-page marketing site for a web development & digital marketing agency, built
+to be **interactive rather than a brochure**. The centrepiece is an **instant
+quote estimator**: a visitor answers five questions about their project and gets
+a real price range, a timeline and a pack recommendation before they ever make
+contact.
 
-Plain **HTML + CSS + JavaScript** on the front end, with an optional
-**Node + Express + SQLite** backend for the contact form and content API. No
-build step and no framework.
+**Live:** <https://mohamedezzirari.github.io/NorthwindDigital_Agency/>
+
+## Stack
+
+| | |
+|---|---|
+| Framework | Vue 3 |
+| Build | Vite + [vite-ssg](https://github.com/antfu/vite-ssg) (static pre-render) |
+| Styling | Plain CSS, no framework — `src/styles/main.css` is the design system |
+| Backend | **None.** The old Express + SQLite server has been deleted |
+
+Everything ships as static files, so it runs on any free static host. The
+contact form falls back to `mailto:`; there is nothing to receive a POST.
+
+## Quick start
+
+```powershell
+npm install
+npm run dev        # development server
+npm run build      # pre-render to dist/
+npm run preview    # serve dist/ on http://localhost:4173/index.html
+npm test           # 330 assertions against dist/
+```
+
+`npm test` inspects the **built** output rather than the sources, so run the
+build first. It is the same check the deploy workflow gates on.
+
+> The preview URL needs the `/index.html` path. `vite preview` does directory
+> index resolution the same way a static host does, and a bare `/` returns the
+> parent directory listing instead.
+
+Requires **Node 22.12+**.
 
 ## Structure
 
 ```
-index.html          page markup (content/sections)
-css/styles.css      all styling (dark cinematic theme, responsive)
-js/config.js        EDIT THIS: business info + all content (services, projects, team, FAQs...)
-js/main.js          rendering + interactions (menu, project slider, form)
-server/             optional backend: contact form API + content API (see server/README.md)
-assets/             logo and team photos (extracted from the original single file)
+index.html              document head: meta, social tags, JSON-LD
+public/assets/          images, copied to the build untouched
+src/
+  data/
+    content.js          EDIT THIS: services, projects, team, process, testimonials
+    pricing.js          the three packs, promos, and the money helpers
+    estimator.js        the quote model — and the pure estimate() function
+    icons.js            inline SVG for the service cards
+  lib/
+    quote.js            shared state between the estimator and the contact form
+    avatar.js           initials-tile fallback + intrinsic image sizes
+    analytics.js        a no-op event shim for an existing tag setup
+  components/
+    layout/             header, footer
+    sections/           one file per section of the page
+    ui/                 icons
+  pages/HomePage.vue    the section order — the page's shape in one file
+  styles/main.css       the design system
+test/                   assertion suites (node test/run-all.mjs)
+scripts/make-og.mjs     generates the social card
 ```
 
-## Run it
+### Editing content
 
-### With the backend (recommended)
+Almost everything you would want to change lives in `src/data/`:
+
+- `content.js` — contact details, nav, services, projects, team, "why us",
+  process steps, testimonials, stats.
+- `pricing.js` — the three packs, their prices and features, plus any promo.
+- `estimator.js` — the quote model: project types, add-ons, retainers, speeds
+  and the price bands.
+
+Contact details are still the placeholders the site ships with
+(`hello@example.com`, WhatsApp `212600000000`, a generic Facebook URL). They are
+declared once in `SITE` and every mailto, WhatsApp link and social link follows.
+
+## The quote estimator
+
+The estimator is deliberately **data, not components**. `src/data/estimator.js`
+holds the whole model plus a pure `estimate()` function that takes an input
+object and returns a price range, a timeline, a budget band and a recommended
+pack. There is no DOM access anywhere in it, which is why it can be asserted
+directly — `test/test-estimator.mjs` runs 71 cases against the maths with no
+build required.
+
+It meets the pricing section only through `recommendPack()`, so the published
+packs and the visitor's own number can be compared without either one
+hard-coding the other.
+
+The form hands its result to the contact section through a single shared ref in
+`src/lib/quote.js`. It pre-fills the service, budget and message — and
+deliberately leaves name and email alone, so the visitor is never handed a form
+they did not ask for.
+
+Every control is a real `<input>` inside a `<fieldset>`, so the section states a
+sensible default price with JavaScript unavailable. That claim is what
+`test/check-cp2.mjs` is there to defend.
+
+## The social card
+
+`og:image` points at `public/assets/og.png`, a 1200×630 card generated from the
+site's own design tokens. It is produced by `npm run og:build` rather than
+hand-made, so it cannot drift from the palette:
 
 ```powershell
-cd server
-npm install
-npm start
+npm run og:build    # regenerate
+npm run og:check    # round-trip decode and verify
 ```
 
-Then open <http://127.0.0.1:3000>. The contact form posts to the API instead of
-opening the visitor's email app, and the page content is served from SQLite.
+The generator needs no image library — PNG is zlib with a framing layer, so it
+decodes the wordmark and encodes the card with Node's built-ins alone.
 
-### Without the backend (plain static)
+## How it deploys
 
-Just open `index.html` in a browser, or serve the folder statically:
+`.github/workflows/deploy-pages.yml` builds, tests and publishes `dist/` to
+GitHub Pages on every push to `main`. Pages must be set to **GitHub Actions** as
+its source (repo *Settings → Pages*).
 
-```powershell
-npx serve .        # or: npx http-server .
-```
+Two decisions worth knowing about:
 
-The page detects that no API is available and falls back to the content in
-`js/config.js`; the contact form reverts to opening the visitor's email app.
-Either way the site still works, and it can be deployed to any static host
-(Netlify, Vercel, Cloudflare Pages, GitHub Pages) by dragging the folder over.
+- **No `actions/configure-pages` step.** That step calls the Pages API, which is
+  where the `Resource not accessible by integration` error comes from. It is also
+  useless here — see the next point.
+- **`base: "./"`** in `vite.config.js`, so every asset reference is relative and
+  the site works from a sub-path (`/NorthwindDigital_Agency/`) as happily as from
+  a domain root. This is also why images are written as plain relative strings in
+  `src/data/` rather than imported through the bundler: importing hashes the
+  filename, and the pre-rendered HTML and the client bundle then disagree about
+  the URL, which breaks images whenever JavaScript is unavailable.
 
-## Editing content
+## Why no router
 
-Almost everything you'd want to change lives in `js/config.js`:
-
-- `CONFIG` — agency name, contact email, WhatsApp number, social links.
-- `SERVICES` — services grouped by category.
-- `PROJECTS` — work/portfolio cards.
-- `TEAM` — team members (grouped automatically by `group`).
-- `WHY`, `STEPS`, `TESTS` — "why us" points, process steps, testimonials.
-- `API_BASE` — where the backend lives. Defaults to the page's own origin;
-  set it to `""` to force purely static mode.
-
-**With the backend running**, that content is copied into SQLite on first boot
-and the page reads it from `/api/content`. `js/config.js` stays the source of
-truth for the initial copy; after that, update content through the API (see
-`server/README.md`) or run `cd server && npm run seed` to reset it from the file.
-
-## Turning the contact form into a real submission
-
-Handled automatically when the backend is running. If you'd rather use a
-third-party service (Formspree, Web3Forms), set `FORM_ENDPOINT` in
-`js/config.js`:
-
-```js
-const FORM_ENDPOINT = "https://formspree.io/f/yourid";
-```
-
-It's used only when no backend is reachable.
-
-## Notes
-
-- Colors/theme are defined as CSS variables at the top of `css/styles.css`.
-- The backend requires Node 22.5+ (it uses the built-in `node:sqlite`, so
-  there is no native module to compile).
-- The original single-file version is preserved at `original-single-file.html`.
-- See `server/README.md` for the API reference and deployment notes.
+It is a single page whose navigation is fragment links (`#services`), not routes.
+`vite-ssg/single-page` pre-renders one document and hydrates it. Adding
+vue-router purely to describe one route would add weight and a base-path problem
+on sub-path hosts without buying anything. When a second page appears, `App.vue`
+is the file that grows.

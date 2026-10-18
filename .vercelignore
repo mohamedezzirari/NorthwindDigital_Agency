@@ -1,7 +1,0 @@
-# Never ship the local backend or dev-only files to Vercel.
-# The site itself is static (index.html, css/, js/, assets/); server/ is an
-# optional local Express + SQLite backend that has no role on Vercel.
-server/
-original-single-file.html
-README.md
-.git/

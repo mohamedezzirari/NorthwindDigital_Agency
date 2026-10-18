@@ -1,10 +1,8 @@
 name: Deploy to GitHub Pages
 
-# Builds the Vue app and publishes the static output in dist/.
-#
-# The legacy Express + SQLite backend in server/ is never published: it is not
-# part of the build, so nothing here has to actively exclude it. Only what
-# vite-ssg emits reaches the artifact.
+# Builds the Vue app, runs the assertion suite against the build, then publishes
+# dist/. Nothing but vite-ssg's own output reaches the artifact, so there is no
+# step that has to actively exclude anything.
 #
 # There is deliberately no actions/configure-pages step. The site uses
 # base: "./" — every asset reference is relative — so there is no repository
@@ -45,6 +43,18 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      # The suites assert against dist/ rather than against the sources, so they
+      # have to run after the build. A failure here stops the deploy — the point
+      # is that a broken page never reaches the live URL.
+      - name: Test the built page
+        run: npm test
+
+      # Separated from npm test because it checks a binary asset rather than the
+      # markup, and a bad og:image fails silently in the wild: the post still
+      # renders, just with no preview card.
+      - name: Check the social card
+        run: npm run og:check
 
       # Nothing in the output is named _site or starts with _, so Jekyll would
       # leave it alone anyway — this is insurance, not a requirement.
