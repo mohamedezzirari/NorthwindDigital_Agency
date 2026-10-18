@@ -238,25 +238,26 @@ export const STEPS = [
 ];
 
 /* ---------- testimonials ----------
-   Placeholders, and the templates say so out loud so nobody ships them by
-   accident. */
+   Sample quotes with invented names — they are placeholders, and the template
+   says so out loud so nobody ships them by accident. Replace both the quotes
+   and the names with genuine feedback. */
 export const TESTS = [
   {
     quote: "Sample testimonial text. Replace with real client feedback about working with your agency.",
-    name: "Client Name",
-    company: "Company",
+    name: "Sarah Bennett",
+    company: "Bennett & Co",
     stars: 5,
   },
   {
     quote: "Sample testimonial text. Replace with real client feedback about the results you delivered.",
-    name: "Client Name",
-    company: "Company",
+    name: "Marcus Reed",
+    company: "Reed Home Services",
     stars: 5,
   },
   {
     quote: "Sample testimonial text. Replace with real client feedback about communication and process.",
-    name: "Client Name",
-    company: "Company",
+    name: "Amina Yusuf",
+    company: "Lumen Studio",
     stars: 4,
   },
 ];
