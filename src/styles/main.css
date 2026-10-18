@@ -108,6 +108,7 @@ header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 8
 .steps p{margin:0;color:var(--muted);font-size:.96rem}
 blockquote{margin:0}.quote{font-size:1.02rem}.who{margin-top:14px;font-weight:600;font-size:.92rem}
 .note{font-size:.85rem;color:var(--muted)}
+.stars{font-size:1.05rem;letter-spacing:2px;margin-bottom:10px;color:var(--line)}.stars .on{color:var(--brand)}
 form{display:grid;gap:16px}.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}@media(max-width:600px){.row{grid-template-columns:minmax(0,1fr)}}
 label{font-weight:500;font-size:.92rem;display:grid;gap:6px}
 input,select,textarea{font:inherit;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);width:100%}

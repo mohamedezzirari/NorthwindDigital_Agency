@@ -17,6 +17,16 @@ import { TESTS } from "../../data/content.js";
         feedback.</p>
       <div class="cols">
         <blockquote v-for="(test, i) in TESTS" :key="i" class="card">
+          <!--
+            The glyphs are aria-hidden; the rating is announced once per card
+            from the wrapper's label, so a screen reader hears "5 out of 5"
+            rather than "star star star star star".
+          -->
+          <div class="stars" :aria-label="`${test.stars} out of 5 stars`" role="img">
+            <span aria-hidden="true">
+              <span v-for="n in 5" :key="n" :class="{ on: n <= test.stars }">★</span>
+            </span>
+          </div>
           <p class="quote">“{{ test.quote }}”</p>
           <div class="who">{{ test.who }}</div>
           <div class="note">Placeholder, not a real client</div>
